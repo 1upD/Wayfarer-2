@@ -17,7 +17,7 @@ class Priorities(object):
         Parameters: goals is an ordered list of lists in the form [variable, bool, integer]
         '''
         for goal in goals:
-            newGoal = Priorities.Goal([goal[0]], goal[1], goal[2])
+            newGoal = Priorities.Goal([goal[0]], goal[1], goal[2], goal[3])
             self.goals.append(newGoal)
     
     class Goal(object):
@@ -28,8 +28,9 @@ class Priorities(object):
         var = []
         greaterThan = True
         limit = 0
+        entity_type = ""
         
-        def __init__(self, var, greaterThan, limit):
+        def __init__(self, var, greaterThan, limit, entityType):
             '''
             Constructor
             Parameters: var is a list containing a variable
@@ -41,6 +42,7 @@ class Priorities(object):
             self.var = var
             self.greaterThan = greaterThan
             self.limit = limit
+            self.entity_type = entityType
             
         def evaluate(self):
             if self.greaterThan: 
