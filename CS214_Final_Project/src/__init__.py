@@ -28,6 +28,8 @@ levels = []
 # Open the map file to get all of the individual level files in the proper order
 map_file = open("map.dat", "r")
 
+# Initialize a counter
+i = 0
 # For each line of the map file
 for line in map_file:
     # Split the line into individual filenames
@@ -35,12 +37,13 @@ for line in map_file:
     # Create a list to hold the row of levels
     levelRow = [0] * len(files)
     # For each file in the line
-    for i in range(0, len(files)):
+    for j in range(0, len(files)):
         # Add a new level to the row
-        levelRow[i] = Level(files[i])
+        levelRow[j] = Level(files[j], i, j)
     # Add the row of levels to the level list    
     levels.append(levelRow)
-
+    # Tick
+    i = i + 1 
 # Close the map file
 map_file.close()
 
@@ -77,7 +80,6 @@ while not gameExit:
     
     # Event loop
     for event in pygame.event.get():      
-        print(event)
         if event.type == pygame.QUIT:
             gameExit = True
         if event.type == pygame.KEYDOWN:
@@ -91,14 +93,24 @@ while not gameExit:
                 currentLevel.keyboardDown()
 
         if event.type == pygame.KEYUP:
+            # Up key
             if event.key == 119:
                 currentLevel.keyboardReleaseUp()            
+            # Left key
             if event.key == 97:
                 currentLevel.keyboardReleaseLeft()            
+            # Right key
             if event.key == 100:
                 currentLevel.keyboardReleaseRight()
+            # Down key
             if event.key == 115:
                 currentLevel.keyboardReleaseDown()
+            
+            # P key
+            if event.key == 112:
+                #Do nothing
+                p = 1
+
 
     # Step
     #currentLevel.step()

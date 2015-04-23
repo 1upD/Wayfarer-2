@@ -21,13 +21,17 @@ class Level(object):
     width = 0
     height = 0
     TILE_SIZE = 50
+    myDescription = ""
+
     
-    def __init__(self, fileName):
+    def __init__(self, fileName, x, y):
         '''
         Constructor
         '''
         height = 0
         width = 0
+        self.myX = x
+        self.myY = y
         self.myStaticObjects = []
         self.myDynamicObjects = []
         file = open(fileName, "r")
@@ -88,10 +92,11 @@ class Level(object):
         #Step
         for dynamicObject in self.myDynamicObjects:
             dynamicObject.step()
+            if dynamicObject.myType == "NPC":
+                dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects)
             if dynamicObject.destroy:
                 self.myDynamicObjects.remove(dynamicObject)
-       # if dynamicObject.myType == "NPC":
-       #     dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects)
+
             
     def checkForTransition(self):
         transitioningObjects = []
@@ -136,6 +141,7 @@ class Level(object):
         return self.player
     '''
     def addDynamicObject(self, dynamicObject):
+        dynamicObject.changeLocation([self.myX, self.myY])
         self.myDynamicObjects.append(dynamicObject)
         if dynamicObject.getX() > self.width:
             dynamicObject.setX(0)

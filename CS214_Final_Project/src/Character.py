@@ -6,16 +6,19 @@ Created on Apr 14, 2015
 from src.DynamicObject import DynamicObject
 from src.StaticObject import StaticObject
 from test.test_pyexpat import PositionTest
+from src.Experience import Experience
+
 
 class Character(DynamicObject):
     '''
     classdocs
     '''
 
-    resources = 3000
+    water = 3000
+
     myType = "NPC"
     mySightRadius = 200
-    
+    myExperience = Experience()
     def __init__(self, params):
         '''
         Constructor
@@ -23,8 +26,8 @@ class Character(DynamicObject):
 
 
     def step(self):
-        self.resources -= 1
-        if self.resources < 0:
+        self.water -= 1
+        if self.water < 0:
             self.destroy = True
         
         if self.myDX > 0 and self.myCollisions[0] == 0 or self.myDX < 0 and self.myCollisions[1] == 0 or self.myDX == 0:
@@ -46,7 +49,7 @@ class Character(DynamicObject):
     def collide(self, otherObject, collisionAngle):
         if otherObject.myType == "Resource":
             otherObject.destroy = True
-            self.resources += 300
+            self.water += 300
         
         if collisionAngle == "Right" and self.myDX > 0:
             self.rightCollision = 1
@@ -67,10 +70,17 @@ class Character(DynamicObject):
             #self.myY = otherObject.getY() - self.myH
         self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
         
-    def perceive(self, staticObjects, dynamicObjects, levelInfo):
+    def perceive(self, staticObjects, dynamicObjects):
         '''
         Receive: staticObjects, dynamicObjects, levelInfo
         Precondition: staticObjects is a list of StaticObject
                       dynamicObjects is a list of DynamicObject
                       levelInfo is a list containing the level name, x, and y PositionTest
         '''
+        self.myExperience.perceive(staticObjects, dynamicObjects)
+
+    def changeLocation(self, location):
+        self.myExperience.changeLocation(location)        
+        
+    
+    

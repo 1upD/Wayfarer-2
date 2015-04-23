@@ -4,8 +4,9 @@ Created on Apr 12, 2015
 @author: 1upde_000
 '''
 from src.DynamicObject import DynamicObject
+from src.Character import Character
 
-class Bounce(DynamicObject):
+class Bounce(Character):
     '''
     classdocs
     '''

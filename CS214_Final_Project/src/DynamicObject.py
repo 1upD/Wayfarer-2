@@ -92,3 +92,6 @@ class DynamicObject(GameObject):
         self.topCollision = 0
         self.bottomCollision = 0
         self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
+    
+    def changeLocation(self, location):
+        ''' Abstract definition '''

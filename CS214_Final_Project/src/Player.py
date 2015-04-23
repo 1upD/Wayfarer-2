@@ -34,4 +34,11 @@ class Player(Character):
 
     def draw(self, gameDisplay, draw):
         draw.rect(gameDisplay, [255, 0, 0], [self.myX, self.myY, self.myW, self.myH])
-        draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.resources / 60, self.myH])
+        draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.water / 60, self.myH])
+        
+        
+    def changeLocation(self, location):
+        ''' Dummy definition '''
+        
+    def perceive(self, staticObjects, dynamicObjects):
+        ''' Dummy definition '''
