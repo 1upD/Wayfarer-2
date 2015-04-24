@@ -15,10 +15,12 @@ class Character(DynamicObject):
     '''
 
     water = 3000
-
+    food = 6000
+    loneliness = 0
+    
     myType = "NPC"
     mySightRadius = 200
-    myExperience = Experience()
+
     def __init__(self, params):
         '''
         Constructor
@@ -27,6 +29,8 @@ class Character(DynamicObject):
 
     def step(self):
         self.water -= 1
+        self.food -= 1
+        self.loneliness += 1
         if self.water < 0:
             self.destroy = True
         
@@ -72,15 +76,13 @@ class Character(DynamicObject):
         
     def perceive(self, staticObjects, dynamicObjects):
         '''
-        Receive: staticObjects, dynamicObjects, levelInfo
-        Precondition: staticObjects is a list of StaticObject
-                      dynamicObjects is a list of DynamicObject
-                      levelInfo is a list containing the level name, x, and y PositionTest
+        Stub
         '''
-        self.myExperience.perceive(staticObjects, dynamicObjects)
 
     def changeLocation(self, location):
-        self.myExperience.changeLocation(location)        
+        '''
+        Stub
+        '''
         
     
     

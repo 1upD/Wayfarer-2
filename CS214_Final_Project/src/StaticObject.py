@@ -4,6 +4,7 @@ Created on Apr 4, 2015
 @author: 1upde_000
 '''
 from src.GameObject import GameObject
+from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
 
 
 class StaticObject(GameObject):
@@ -17,8 +18,8 @@ class StaticObject(GameObject):
         '''
         self.myX = x
         self.myY = y
-        self.myH = 50
-        self.myW = 50
+        self.myH = WINDOW_HEIGHT / 25
+        self.myW = WINDOW_WIDTH / 25
         
     
     def _init_(self, x, y, w, h):

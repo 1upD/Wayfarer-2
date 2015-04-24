@@ -5,11 +5,14 @@ Created on Mar 15, 2015
 '''
 
 from test.test_buffer import numpy_array
-from src.GameObject import GameObject
-from src.StaticObject import StaticObject
-from src.Player import Player
+
 from src.DynamicObject import DynamicObject
+from src.GameObject import GameObject
+from src.Globals import WINDOW_HEIGHT
+from src.Player import Player
 from src.Resource import Resource
+from src.StaticObject import StaticObject
+
 
 class Level(object):
     '''
@@ -20,7 +23,7 @@ class Level(object):
     myDynamicObjects = []
     width = 0
     height = 0
-    TILE_SIZE = 50
+    TILE_SIZE = WINDOW_HEIGHT / 25
     myDescription = ""
 
     
@@ -159,25 +162,25 @@ class Level(object):
         
         
     def keyboardUp(self):
-        self.player.setDY(-10)
+        self.player.setDY(-1)
         
     def keyboardReleaseUp(self):
         self.player.setDY(0)
 
     def keyboardDown(self):
-        self.player.setDY(10)
+        self.player.setDY(1)
         
     def keyboardReleaseDown(self):
         self.player.setDY(0)
 
     def keyboardLeft(self):
-        self.player.setDX(-10)
+        self.player.setDX(-1)
         
     def keyboardReleaseLeft(self):
         self.player.setDX(0)
         
     def keyboardRight(self):
-        self.player.setDX(10)
+        self.player.setDX(1)
         
     def keyboardReleaseRight(self):
         self.player.setDX(0)            

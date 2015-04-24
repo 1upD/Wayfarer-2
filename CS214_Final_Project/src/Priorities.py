@@ -14,10 +14,10 @@ class Priorities(object):
     def __init__(self, goals):
         '''
         Constructor
-        Parameters: goals is an ordered list of lists in the form [variable, bool, integer]
+        Parameters: goals is an ordered list of lists in the form [variable, greaterThan, limit, entityType, priority]
         '''
         for goal in goals:
-            newGoal = Priorities.Goal([goal[0]], goal[1], goal[2], goal[3])
+            newGoal = Priorities.Goal(goal[0], goal[1], goal[2], goal[3], goal[4])
             self.goals.append(newGoal)
     
     class Goal(object):
@@ -30,10 +30,10 @@ class Priorities(object):
         limit = 0
         entity_type = ""
         
-        def __init__(self, var, greaterThan, limit, entityType):
+        def __init__(self, var, greaterThan, limit, entityType, priority):
             '''
             Constructor
-            Parameters: var is a list containing a variable
+            Parameters: var is a priority_variable
                         greaterThan is a bool describing whether or not the variable should be greater or less than the limit
                         limit is the value the variable cannot reach
                         
@@ -46,12 +46,12 @@ class Priorities(object):
             
         def evaluate(self):
             if self.greaterThan: 
-                return self.var[0] > self.limit
+                return self.var.get_value() > self.limit
             else:
-                return self.var[0] < self.limit
+                return self.var.get_value() < self.limit
             
         def optimize(self, newVar):
             if self.greaterThan:
-                return newVar - self.var[0]
+                return newVar - self.var.get_value()
             else:
-                return self.var[0] - newVar
+                return self.var.get_value() - newVar

@@ -3,10 +3,15 @@ Created on Apr 12, 2015
 
 @author: 1upde_000
 '''
-from src.DynamicObject import DynamicObject
 from src.Character import Character
+from src.DynamicObject import DynamicObject
+from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH
+from src.NPC import NPC
+from src.Priorities import Priorities
+from src.priority_variable import priority_variable
 
-class Bounce(Character):
+
+class Bounce(NPC):
     '''
     classdocs
     '''
@@ -16,12 +21,20 @@ class Bounce(Character):
         '''
         Constructor
         '''
+        self.water_priority = priority_variable(self.water)
+        self.food_priority = priority_variable(self.food)
+        self.companionship_priority = priority_variable(self.loneliness)
+        goals = [[self.water_priority, True, 15, "Resource", 10],
+                 [self.food_priority, True, 15, "Food", 9],
+                 [self.companionship_priority, False, 6000, "NPC", 5]]
+        self.myPriorities = Priorities(goals)    
         self.myX = x
         self.myY = y
-        self.myH = 50
-        self.myW = 50
-        self.myDX = 20
-        self.myDY = 20
+        self.myH = WINDOW_HEIGHT / 25
+        self.myW = WINDOW_WIDTH / 25
+        self.myDX = 5
+        self.myDY = 5
+
 
     def collide(self, otherObject, collisionAngle):
         if collisionAngle == "Right" and self.myDX > 0:

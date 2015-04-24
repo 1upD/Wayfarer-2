@@ -5,6 +5,8 @@ Created on Apr 5, 2015
 '''
 from src.DynamicObject import DynamicObject
 from src.Character import Character
+from src.Globals import WINDOW_HEIGHT
+from src.Globals import WINDOW_WIDTH
 
 class Player(Character):
     '''
@@ -19,8 +21,8 @@ class Player(Character):
         '''
         self.myX = x
         self.myY = y
-        self.myH = 50
-        self.myW = 50
+        self.myH = WINDOW_HEIGHT / 25
+        self.myW = WINDOW_WIDTH / 25
     
     def _init_(self, x, y, w, h):
         '''
@@ -34,7 +36,7 @@ class Player(Character):
 
     def draw(self, gameDisplay, draw):
         draw.rect(gameDisplay, [255, 0, 0], [self.myX, self.myY, self.myW, self.myH])
-        draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.water / 60, self.myH])
+        draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.water / (3000 / self.myH), self.myH])
         
         
     def changeLocation(self, location):

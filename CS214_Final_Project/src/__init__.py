@@ -1,22 +1,22 @@
-import src
-from src import *
-from src.Level import Level
-from src.Bounce import Bounce
+from test.test_buffer import numpy_array
 
 import pygame
 from pygame.locals import *
 
-from test.test_buffer import numpy_array
-from src.GameObject import GameObject
+import src
+from src.Level import Level
+from src.Bounce import Bounce
+from src.Player import Player
 
 # Constants
-WINDOW_WIDTH = 800
-WINDOW_HEIGHT = 500
+WINDOW_WIDTH = 450
+WINDOW_HEIGHT = 450
+OFFSET = 0
 
 # Initialize pygame
 pygame.init()
 # Create a new window, set to 
-gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), HWSURFACE | DOUBLEBUF | RESIZABLE)
 # Set the caption to be the title of the game
 pygame.display.set_caption("Dog Eat Dog")
 # Update the display
@@ -54,7 +54,7 @@ currentLevelY = 0
 currentLevel = levels[0][0]
 
 # Initialize the player
-player = Player.Player(100, 100)
+player = Player(100, 100)
 currentLevel.resetPlayer(player)
 bounce = Bounce(200, 200)
 currentLevel.addDynamicObject(bounce)
@@ -110,7 +110,6 @@ while not gameExit:
             if event.key == 112:
                 #Do nothing
                 p = 1
-
 
     # Step
     #currentLevel.step()
@@ -194,4 +193,3 @@ while not gameExit:
     
 pygame.quit()
 quit
-
