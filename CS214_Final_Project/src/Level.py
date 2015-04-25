@@ -96,7 +96,7 @@ class Level(object):
         for dynamicObject in self.myDynamicObjects:
             dynamicObject.step()
             if dynamicObject.myType == "NPC":
-                dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects)
+                dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects, dynamicObject.getX(), dynamicObject.getY())
             if dynamicObject.destroy:
                 self.myDynamicObjects.remove(dynamicObject)
 
@@ -162,25 +162,25 @@ class Level(object):
         
         
     def keyboardUp(self):
-        self.player.setDY(-1)
+        self.player.setDY(-2)
         
     def keyboardReleaseUp(self):
         self.player.setDY(0)
 
     def keyboardDown(self):
-        self.player.setDY(1)
+        self.player.setDY(2)
         
     def keyboardReleaseDown(self):
         self.player.setDY(0)
 
     def keyboardLeft(self):
-        self.player.setDX(-1)
+        self.player.setDX(-2)
         
     def keyboardReleaseLeft(self):
         self.player.setDX(0)
         
     def keyboardRight(self):
-        self.player.setDX(1)
+        self.player.setDX(2)
         
     def keyboardReleaseRight(self):
         self.player.setDX(0)            

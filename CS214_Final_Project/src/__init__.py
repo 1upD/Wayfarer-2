@@ -7,6 +7,7 @@ import src
 from src.Level import Level
 from src.Bounce import Bounce
 from src.Player import Player
+from src.NPC import NPC
 
 # Constants
 WINDOW_WIDTH = 450
@@ -49,14 +50,14 @@ map_file.close()
 
 # Initialize coordinates for the current level
 currentLevelX = 0
-currentLevelY = 0
+currentLevelY = 1
 # Initialize a variable to represent the level currently being drawn
-currentLevel = levels[0][0]
+currentLevel = levels[1][0]
 
 # Initialize the player
 player = Player(100, 100)
 currentLevel.resetPlayer(player)
-bounce = Bounce(200, 200)
+bounce = NPC(200, 200, 18, 18)
 currentLevel.addDynamicObject(bounce)
 
 # Start the clock

@@ -42,5 +42,5 @@ class Player(Character):
     def changeLocation(self, location):
         ''' Dummy definition '''
         
-    def perceive(self, staticObjects, dynamicObjects):
+    def perceive(self, staticObjects, dynamicObjects, x, y):
         ''' Dummy definition '''

@@ -10,6 +10,8 @@ from src.Experience import Experience
 from src.Character import Character
 from src.Priorities import Priorities
 from src.priority_variable import priority_variable
+from src.Intelligence import Intelligence
+from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH
 
 
 class NPC(Character):
@@ -19,13 +21,19 @@ class NPC(Character):
     
     myType = "NPC"
     mySightRadius = 200
-    myExperience = Experience()
     myPriorities = 0
     
     def __init__(self, x, y, w, h):
         '''
         Constructor
         '''
+        self.myX = x
+        self.myY = y
+        self.myH = WINDOW_HEIGHT / 25
+        self.myW = WINDOW_WIDTH / 25
+        self.myDX = 0
+        self.myDY = 0
+        
         self.water_priority = priority_variable(self.water)
         self.food_priority = priority_variable(self.food)
         self.companionship_priority = priority_variable(self.loneliness)
@@ -34,18 +42,15 @@ class NPC(Character):
                  [self.companionship_priority, False, 6000, "NPC", 5]]
     
         self.myPriorities = Priorities(goals)    
-        
-    def perceive(self, staticObjects, dynamicObjects):
+        self.intelligence = Intelligence(self.myExperience, self.myPriorities)
+    def perceive(self, staticObjects, dynamicObjects, x, y):
         '''
         Receive: staticObjects, dynamicObjects, levelInfo
         Precondition: staticObjects is a list of StaticObject
                       dynamicObjects is a list of DynamicObject
                       levelInfo is a list containing the level name, x, and y PositionTest
         '''
-        self.myExperience.perceive(staticObjects, dynamicObjects)
-
-    def changeLocation(self, location):
-        self.myExperience.changeLocation(location)        
+        self.myExperience.perceive(staticObjects, dynamicObjects, x, y)
         
     
     def step(self):
@@ -53,3 +58,15 @@ class NPC(Character):
         self.water_priority.update(self.water)
         self.food_priority.update(self.water)
         self.companionship_priority.update(self.loneliness)
+        move = self.intelligence.getMove()
+        if move == 0:
+            self.myDX = 2
+        if move == 1:
+            self.myDX = -2
+        if move == 2:
+            self.myDY = -2
+        if move == 3:
+            self.myDY = 2
+            
+    def draw(self, gameDisplay, draw):
+        draw.rect(gameDisplay, [0, 255, 0], [self.myX, self.myY, self.myW, self.myH])   

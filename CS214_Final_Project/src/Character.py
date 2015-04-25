@@ -17,7 +17,8 @@ class Character(DynamicObject):
     water = 3000
     food = 6000
     loneliness = 0
-    
+    myExperience = Experience()    
+
     myType = "NPC"
     mySightRadius = 200
 
@@ -74,15 +75,13 @@ class Character(DynamicObject):
             #self.myY = otherObject.getY() - self.myH
         self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
         
-    def perceive(self, staticObjects, dynamicObjects):
+    def perceive(self, staticObjects, dynamicObjects, x, y):
         '''
         Stub
         '''
 
     def changeLocation(self, location):
-        '''
-        Stub
-        '''
+        self.myExperience.changeLocation(location)        
         
     
     

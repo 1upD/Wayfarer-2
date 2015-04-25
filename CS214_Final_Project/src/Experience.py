@@ -15,13 +15,14 @@ class Experience(object):
     recalledEntities = []
     location = []
     myObstacles = [] 
-    
+    x = 0
+    y = 0
     def __init__(self):
         '''
         Constructor
         '''
     
-    def perceive(self, staticObjects, dynamicObjects):
+    def perceive(self, staticObjects, dynamicObjects, x, y):
         # Tick the time by one
         self.time += 1    
         self.myObstacles = staticObjects
@@ -30,12 +31,16 @@ class Experience(object):
             if self.recalledEntities.count(entity) == 0:
                 self.recalledEntities.append(entity)
                 print("Spotted new entity and committed to long term memory: " + entity.type())
+        self.x = x
+        self.y = y
     def getSurroundings(self):
         '''
         Returns [myObstacles, nearbyEntities]
         '''
         return [self.myObstacles, self.nearbyEntities]
-        
+    
+    def get_position(self):
+        return [self.x, self.y]
     def changeLocation(self, location):
         self.commitToLongTerm()
         self.location = location
