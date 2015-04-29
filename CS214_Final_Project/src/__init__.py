@@ -17,7 +17,9 @@ OFFSET = 0
 # Initialize pygame
 pygame.init()
 # Create a new window, set to 
-gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), HWSURFACE | DOUBLEBUF | RESIZABLE)
+gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), 
+                                    #  FULLSCREEN |
+                                       HWSURFACE | DOUBLEBUF | RESIZABLE)
 # Set the caption to be the title of the game
 pygame.display.set_caption("Dog Eat Dog")
 # Update the display
@@ -57,8 +59,8 @@ currentLevel = levels[1][0]
 # Initialize the player
 player = Player(100, 100)
 currentLevel.resetPlayer(player)
-bounce = NPC(200, 200, 18, 18)
-currentLevel.addDynamicObject(bounce)
+#bounce = NPC(198, 198, 18, 18)
+#currentLevel.addDynamicObject(bounce)
 
 # Start the clock
 clock = pygame.time.Clock()

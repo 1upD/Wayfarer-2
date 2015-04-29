@@ -17,12 +17,15 @@ class Experience(object):
     myObstacles = [] 
     x = 0
     y = 0
+    water = 0
+    food = 0
+    loneliness = 0
     def __init__(self):
         '''
         Constructor
         '''
     
-    def perceive(self, staticObjects, dynamicObjects, x, y):
+    def perceive(self, staticObjects, dynamicObjects, x, y, water, food, loneliness):
         # Tick the time by one
         self.time += 1    
         self.myObstacles = staticObjects
@@ -33,6 +36,18 @@ class Experience(object):
                 print("Spotted new entity and committed to long term memory: " + entity.type())
         self.x = x
         self.y = y
+        self.water = water
+        self.food = food
+        self.loneliness = loneliness
+        
+    def get_water(self):
+        return self.water
+    
+    def get_food(self):
+        return self.food
+    def get_loneliness(self):
+        return self.loneliness
+    
     def getSurroundings(self):
         '''
         Returns [myObstacles, nearbyEntities]

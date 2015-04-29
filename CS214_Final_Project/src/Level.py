@@ -12,6 +12,7 @@ from src.Globals import WINDOW_HEIGHT
 from src.Player import Player
 from src.Resource import Resource
 from src.StaticObject import StaticObject
+from src.push_block import push_block
 
 
 class Level(object):
@@ -60,6 +61,9 @@ class Level(object):
                 if val == "2":
                     newResource  = Resource(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self.myDynamicObjects.append(newResource)
+                if val == "4":
+                    new_push_block  = push_block(self.TILE_SIZE * column, self.TILE_SIZE * row) 
+                    self.myDynamicObjects.append(new_push_block)
         self.height = height * self.TILE_SIZE
         self.width = width * self.TILE_SIZE
 
@@ -96,7 +100,7 @@ class Level(object):
         for dynamicObject in self.myDynamicObjects:
             dynamicObject.step()
             if dynamicObject.myType == "NPC":
-                dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects, dynamicObject.getX(), dynamicObject.getY())
+                dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects)
             if dynamicObject.destroy:
                 self.myDynamicObjects.remove(dynamicObject)
 

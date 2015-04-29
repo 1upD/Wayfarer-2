@@ -55,22 +55,30 @@ class Character(DynamicObject):
         if otherObject.myType == "Resource":
             otherObject.destroy = True
             self.water += 300
-        
+            
         if collisionAngle == "Right" and self.myDX > 0:
             self.rightCollision = 1
+            if otherObject.type() is "pushable":
+                otherObject.myDX = 2
             #self.myDX = 0
             #self.myX = otherObject.getX() - self.myW
             
         if collisionAngle == "Left" and self.myDX < 0:
             self.leftCollision = 1
+            if otherObject.type() is "pushable":
+                otherObject.myDX = -2
             #self.myDX = 0
             #self.myX = otherObject.getX() + otherObject.getW()
         if collisionAngle == "Top" and self.myDY < 0:
             self.topCollision = 1
+            if otherObject.type() is "pushable":
+                otherObject.myDY = -2
             #self.myDY = 0
             #self.myY = otherObject.getY() + otherObject.getH()
         if collisionAngle == "Bottom" and self.myDY > 0:
             self.bottomCollision = 1
+            if otherObject.type() is "pushable":
+                otherObject.myDY = 2
             #self.myDY = 0
             #self.myY = otherObject.getY() - self.myH
         self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
