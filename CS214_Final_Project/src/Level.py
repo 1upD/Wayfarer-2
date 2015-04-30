@@ -13,6 +13,7 @@ from src.Player import Player
 from src.Resource import Resource
 from src.StaticObject import StaticObject
 from src.push_block import push_block
+from src.prey_animal import prey_animal
 
 
 class Level(object):
@@ -58,12 +59,16 @@ class Level(object):
                 if val == "1":
                     newTile = StaticObject(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self.myStaticObjects.append(newTile)
-                if val == "2":
+                elif val == "2":
                     newResource  = Resource(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self.myDynamicObjects.append(newResource)
-                if val == "4":
+                elif val == "4":
                     new_push_block  = push_block(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self.myDynamicObjects.append(new_push_block)
+                elif val is "5":
+                    new_prey_animal = prey_animal(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    self.myDynamicObjects.append(new_prey_animal)
+                    
         self.height = height * self.TILE_SIZE
         self.width = width * self.TILE_SIZE
 

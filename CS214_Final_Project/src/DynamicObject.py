@@ -4,6 +4,7 @@ Created on Apr 4, 2015
 @author: Derek Dik
 '''
 from src.GameObject import GameObject
+from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
 
 class DynamicObject(GameObject):
     '''
@@ -26,7 +27,8 @@ class DynamicObject(GameObject):
         '''
         self.myX = x
         self.myY = y
-    
+        self.myH = WINDOW_HEIGHT / 25
+        self.myW = WINDOW_WIDTH / 25
     def _init_(self, x, y, w, h):
         '''
         Second Constructor

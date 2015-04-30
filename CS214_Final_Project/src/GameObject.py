@@ -49,7 +49,7 @@ class GameObject(object):
         return self.myType
     
     def testCollision(self, otherObject):
-        if otherObject != self: 
+        if otherObject is not self: 
             x = self.myX + self.myDX
             y = self.myY + self.myDY
             #Bottom side collision
