@@ -97,3 +97,6 @@ class DynamicObject(GameObject):
     
     def changeLocation(self, location):
         ''' Abstract definition '''
+        
+    def set_visible(self):
+        '''Dummy definition'''

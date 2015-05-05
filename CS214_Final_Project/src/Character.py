@@ -18,7 +18,7 @@ class Character(DynamicObject):
     food = 6000
     loneliness = 0
     myExperience = Experience()    
-
+    damage_cooldown = 0
     myType = "NPC"
     mySightRadius = 200
 
@@ -29,6 +29,7 @@ class Character(DynamicObject):
 
 
     def step(self):
+        self.damage_cooldown += 1
         self.water -= 1
         self.food -= 1
         self.loneliness += 1
@@ -52,36 +53,40 @@ class Character(DynamicObject):
         self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
         
     def collide(self, otherObject, collisionAngle):
-        if otherObject.myType == "Resource":
-            otherObject.destroy = True
-            self.water += 300
-            
-        if collisionAngle == "Right" and self.myDX > 0:
-            self.rightCollision = 1
-            if otherObject.type() is "pushable":
-                otherObject.myDX = 2
-            #self.myDX = 0
-            #self.myX = otherObject.getX() - self.myW
-            
-        if collisionAngle == "Left" and self.myDX < 0:
-            self.leftCollision = 1
-            if otherObject.type() is "pushable":
-                otherObject.myDX = -2
-            #self.myDX = 0
-            #self.myX = otherObject.getX() + otherObject.getW()
-        if collisionAngle == "Top" and self.myDY < 0:
-            self.topCollision = 1
-            if otherObject.type() is "pushable":
-                otherObject.myDY = -2
-            #self.myDY = 0
-            #self.myY = otherObject.getY() + otherObject.getH()
-        if collisionAngle == "Bottom" and self.myDY > 0:
-            self.bottomCollision = 1
-            if otherObject.type() is "pushable":
-                otherObject.myDY = 2
-            #self.myDY = 0
-            #self.myY = otherObject.getY() - self.myH
-        self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
+        if otherObject is not self:
+            if otherObject.myType == "water_resource":
+                self.water += otherObject.get_water()
+            elif otherObject.myType == "predator" and self.damage_cooldown > 30:
+                self.water -= 300
+                self.damage_cooldown = 0
+                otherObject.set_visible()
+                    
+            if collisionAngle == "Right" and self.myDX > 0:
+                self.rightCollision = 1
+                if otherObject.type() is "pushable":
+                    otherObject.myDX = 2
+                #self.myDX = 0
+                #self.myX = otherObject.getX() - self.myW
+                
+            if collisionAngle == "Left" and self.myDX < 0:
+                self.leftCollision = 1
+                if otherObject.type() is "pushable":
+                    otherObject.myDX = -2
+                #self.myDX = 0
+                #self.myX = otherObject.getX() + otherObject.getW()
+            if collisionAngle == "Top" and self.myDY < 0:
+                self.topCollision = 1
+                if otherObject.type() is "pushable":
+                    otherObject.myDY = -2
+                #self.myDY = 0
+                #self.myY = otherObject.getY() + otherObject.getH()
+            if collisionAngle == "Bottom" and self.myDY > 0:
+                self.bottomCollision = 1
+                if otherObject.type() is "pushable":
+                    otherObject.myDY = 2
+                #self.myDY = 0
+                #self.myY = otherObject.getY() - self.myH
+            self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
         
     def perceive(self, staticObjects, dynamicObjects, x, y):
         '''

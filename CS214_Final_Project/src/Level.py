@@ -10,10 +10,12 @@ from src.DynamicObject import DynamicObject
 from src.GameObject import GameObject
 from src.Globals import WINDOW_HEIGHT
 from src.Player import Player
-from src.Resource import Resource
+from src.Resource import water_resource
 from src.StaticObject import StaticObject
 from src.push_block import push_block
 from src.prey_animal import prey_animal
+from src.simple_predator import simple_predator
+from src.plant_trap import plant_trap
 
 
 class Level(object):
@@ -56,18 +58,26 @@ class Level(object):
         for row in range(0, height):
             for column in range(0, width):
                 val = tiles[row][column]
-                if val == "1":
+                if val == "1" or val == "x":
                     newTile = StaticObject(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self.myStaticObjects.append(newTile)
                 elif val == "2":
-                    newResource  = Resource(self.TILE_SIZE * column, self.TILE_SIZE * row) 
-                    self.myDynamicObjects.append(newResource)
+                    newResource  = water_resource(self.TILE_SIZE * column, self.TILE_SIZE * row) 
+                #   self.myDynamicObjects.append(newResource)
+                    self.myStaticObjects.append(newResource)
                 elif val == "4":
                     new_push_block  = push_block(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self.myDynamicObjects.append(new_push_block)
                 elif val is "5":
                     new_prey_animal = prey_animal(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self.myDynamicObjects.append(new_prey_animal)
+                elif val is "6":
+                    new_predator = simple_predator(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    self.myDynamicObjects.append(new_predator)
+                elif val is "7":
+                    new_plant = plant_trap(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    # self.myDynamicObjects.append(new_plant)
+                    self.myStaticObjects.append(new_plant)
                     
         self.height = height * self.TILE_SIZE
         self.width = width * self.TILE_SIZE
@@ -171,25 +181,25 @@ class Level(object):
         
         
     def keyboardUp(self):
-        self.player.setDY(-2)
+        self.player.setDY(-4)
         
     def keyboardReleaseUp(self):
         self.player.setDY(0)
 
     def keyboardDown(self):
-        self.player.setDY(2)
+        self.player.setDY(4)
         
     def keyboardReleaseDown(self):
         self.player.setDY(0)
 
     def keyboardLeft(self):
-        self.player.setDX(-2)
+        self.player.setDX(-4)
         
     def keyboardReleaseLeft(self):
         self.player.setDX(0)
         
     def keyboardRight(self):
-        self.player.setDX(2)
+        self.player.setDX(4)
         
     def keyboardReleaseRight(self):
         self.player.setDX(0)            

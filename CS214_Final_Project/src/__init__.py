@@ -3,6 +3,8 @@ from test.test_buffer import numpy_array
 import pygame
 from pygame.locals import *
 
+import sys
+
 import src
 from src.Level import Level
 from src.Bounce import Bounce
@@ -10,16 +12,15 @@ from src.Player import Player
 from src.NPC import NPC
 
 # Constants
-WINDOW_WIDTH = 450
-WINDOW_HEIGHT = 450
+WINDOW_WIDTH = 700
+WINDOW_HEIGHT = 700
 OFFSET = 0
 
 # Initialize pygame
 pygame.init()
 # Create a new window, set to 
-gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), 
-                                    #  FULLSCREEN |
-                                       HWSURFACE | DOUBLEBUF | RESIZABLE)
+gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), HWSURFACE | DOUBLEBUF | RESIZABLE)
+                                      #FULLSCREEN | HWSURFACE | DOUBLEBUF | RESIZABLE)
 # Set the caption to be the title of the game
 pygame.display.set_caption("Dog Eat Dog")
 # Update the display
@@ -51,10 +52,10 @@ for line in map_file:
 map_file.close()
 
 # Initialize coordinates for the current level
-currentLevelX = 0
+currentLevelX = 2
 currentLevelY = 1
 # Initialize a variable to represent the level currently being drawn
-currentLevel = levels[1][0]
+currentLevel = levels[1][2]
 
 # Initialize the player
 player = Player(100, 100)
@@ -65,6 +66,8 @@ currentLevel.resetPlayer(player)
 # Start the clock
 clock = pygame.time.Clock()
 
+for i in range(10000, 10090):
+    print("images\\plant\\Plantrap" + str(i) + ".png")
 '''
 Main loop
 '''
@@ -82,7 +85,7 @@ while not gameExit:
     clock.tick(30)
     
     # Event loop
-    for event in pygame.event.get():      
+    for event in pygame.event.get():   
         if event.type == pygame.QUIT:
             gameExit = True
         if event.type == pygame.KEYDOWN:
@@ -94,7 +97,9 @@ while not gameExit:
                 currentLevel.keyboardRight()
             if event.key == 115:
                 currentLevel.keyboardDown()
-
+            if event.key == 27:
+                pygame.quit()
+                gameExit = True
         if event.type == pygame.KEYUP:
             # Up key
             if event.key == 119:
@@ -116,59 +121,59 @@ while not gameExit:
 
     # Step
     #currentLevel.step()
-    
-    for row in levels:
-        for level in row:
-            level.step()
-            transitioningObjects = level.checkForTransition()
-            for transitioningObject in transitioningObjects:
-                transition = transitioningObject[1]
-                if transitioningObject[1] != "None":
-                    levelX = 0
-                    levelY = 0
+    # for row in levels:
+    #    for level in row:
+    level = currentLevel
+    level.step()
+    transitioningObjects = level.checkForTransition()
+    for transitioningObject in transitioningObjects:
+        transition = transitioningObject[1]
+        if transitioningObject[1] != "None":
+            levelX = 0
+            levelY = 0
+            
+            for row in range(len(levels)):
+                for column in range(len(levels[row])):
+                    if levels[row][column] == level:
+                        levelY = row
+                        levelX = column
+            
+            
+            if transition == "Up":
+                if transitioningObject[0].type() == "Player":
+                    #player = currentLevel.extractPlayer()
+                    currentLevelY -= 1
+                    currentLevel = levels[currentLevelY][currentLevelX]
+                    currentLevel.resetPlayer(player)
+                else:
+                    levels[levelY - 1][levelX].addDynamicObject(transitioningObject[0])
+            elif transition == "Down":
+                if transitioningObject[0].type() == "Player":
+                    #player = currentLevel.extractPlayer()
+                    currentLevelY += 1
+                    currentLevel = levels[currentLevelY][currentLevelX]
+                    currentLevel.resetPlayer(player)
+                else:
+                    levels[levelY + 1][levelX].addDynamicObject(transitioningObject[0])
                     
-                    for row in range(len(levels)):
-                        for column in range(len(levels[row])):
-                            if levels[row][column] == level:
-                                levelY = row
-                                levelX = column
-                    
-                    
-                    if transition == "Up":
-                        if transitioningObject[0].type() == "Player":
-                            #player = currentLevel.extractPlayer()
-                            currentLevelY -= 1
-                            currentLevel = levels[currentLevelY][currentLevelX]
-                            currentLevel.resetPlayer(player)
-                        else:
-                            levels[levelY - 1][levelX].addDynamicObject(transitioningObject[0])
-                    elif transition == "Down":
-                        if transitioningObject[0].type() == "Player":
-                            #player = currentLevel.extractPlayer()
-                            currentLevelY += 1
-                            currentLevel = levels[currentLevelY][currentLevelX]
-                            currentLevel.resetPlayer(player)
-                        else:
-                            levels[levelY + 1][levelX].addDynamicObject(transitioningObject[0])
-                            
-                    elif transition == "Left":
-                        if transitioningObject[0].type() == "Player":
-                            #player = currentLevel.extractPlayer()
-                            currentLevelX -= 1
-                            currentLevel = levels[currentLevelY][currentLevelX]
-                            currentLevel.resetPlayer(player)
-                        else:
-                            levels[levelY][levelX - 1].addDynamicObject(transitioningObject[0])
-                
-                    elif transition == "Right":
-                        if transitioningObject[0].type() == "Player":
-                            #player = currentLevel.extractPlayer()
-                            currentLevelX += 1
-                            currentLevel = levels[currentLevelY][currentLevelX]
-                            currentLevel.resetPlayer(player)
-                        else:
-                            levels[levelY][levelX + 1].addDynamicObject(transitioningObject[0])
+            elif transition == "Left":
+                if transitioningObject[0].type() == "Player":
+                    #player = currentLevel.extractPlayer()
+                    currentLevelX -= 1
+                    currentLevel = levels[currentLevelY][currentLevelX]
+                    currentLevel.resetPlayer(player)
+                else:
+                    levels[levelY][levelX - 1].addDynamicObject(transitioningObject[0])
         
+            elif transition == "Right":
+                if transitioningObject[0].type() == "Player":
+                    #player = currentLevel.extractPlayer()
+                    currentLevelX += 1
+                    currentLevel = levels[currentLevelY][currentLevelX]
+                    currentLevel.resetPlayer(player)
+                else:
+                    levels[levelY][levelX + 1].addDynamicObject(transitioningObject[0])
+
 
 '''
     transition = currentLevel.checkForTransition()
@@ -194,5 +199,4 @@ while not gameExit:
         currentLevel.resetPlayer(player)
 '''
     
-pygame.quit()
-quit
+sys.exit()

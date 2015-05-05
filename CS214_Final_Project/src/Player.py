@@ -7,6 +7,7 @@ from src.DynamicObject import DynamicObject
 from src.Character import Character
 from src.Globals import WINDOW_HEIGHT
 from src.Globals import WINDOW_WIDTH
+from src.sprite import sprite
 
 class Player(Character):
     '''
@@ -14,6 +15,7 @@ class Player(Character):
     '''
 
     myType = "Player"
+    
     
     def __init__(self, x, y):
         '''
@@ -23,7 +25,8 @@ class Player(Character):
         self.myY = y
         self.myH = WINDOW_HEIGHT / 25
         self.myW = WINDOW_WIDTH / 25
-    
+        self.walking_sprite = sprite("images/player/walking.dat")
+
     def _init_(self, x, y, w, h):
         '''
         Second Constructor
@@ -35,9 +38,10 @@ class Player(Character):
     
 
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, [255, 0, 0], [self.myX, self.myY, self.myW, self.myH])
-        draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.water / (3000 / self.myH), self.myH])
-        
+        self.walking_sprite.draw(gameDisplay, draw, self.myX, self.myY)
+        # draw.rect(gameDisplay, [255, 0, 0], [self.myX, self.myY, self.myW, self.myH])
+        # draw.rect(gameDisplay, [0, 255, 0, 100], [self.myX, self.myY, self.water / (3000 / self.myH), self.myH])
+        draw.rect(gameDisplay, [0, 255, 0, 100], [25, 25, self.water / 5, 10])
         
     def changeLocation(self, location):
         ''' Dummy definition '''
