@@ -21,48 +21,48 @@ class Player(Character):
         '''
         Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25
-        self.myW = WINDOW_WIDTH / 25
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25
+        self._w = WINDOW_WIDTH / 25
         self.sprite = sprite("images/player/walking.dat")
 
     def _init_(self, x, y, w, h):
         '''
         Second Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = w
-        self.myY = h
+        self._x = x
+        self._y = y
+        self._h = w
+        self._y = h
     
 
     def draw(self, gameDisplay, draw):
         # Choose a direction based on player speed
-        if self.myDX > 0 and self.myDY == 0:
+        if self._dx > 0 and self._dy == 0:
             self.direction = 0
-        elif self.myDX > 0 and self.myDY < 0:
+        elif self._dx > 0 and self._dy < 0:
             self.direction = 45
-        elif self.myDX == 0 and self.myDY < 0:
+        elif self._dx == 0 and self._dy < 0:
             self.direction = 90
-        elif self.myDX < 0 and self.myDY < 0:
+        elif self._dx < 0 and self._dy < 0:
             self.direction = 135
-        elif self.myDX < 0 and self.myDY == 0:
+        elif self._dx < 0 and self._dy == 0:
             self.direction = 180
-        elif self.myDX < 0 and self.myDY > 0:
+        elif self._dx < 0 and self._dy > 0:
             self.direction = 225
-        elif self.myDX == 0 and self.myDY > 0:
+        elif self._dx == 0 and self._dy > 0:
             self.direction = 270
-        elif self.myDX > 0 and self.myDY > 0:
+        elif self._dx > 0 and self._dy > 0:
             self.direction = 315
         
         # Set sprite speed
-        if self.myDX == 0 and self.myDY == 0:
+        if self._dx == 0 and self._dy == 0:
             self.sprite.set_rate(0)
         else:
             self.sprite.set_rate(1)
         # Draw the sprite
-        self.sprite.draw_with_direction(gameDisplay, self.direction, self.myX, self.myY)
+        self.sprite.draw_with_direction(gameDisplay, self.direction, self._x, self._y)
 
         # Draw the H20 bar
         draw.rect(gameDisplay, [0, 0, 255, 100], [25, 25, self._water / 5, 10])

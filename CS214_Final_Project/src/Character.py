@@ -32,21 +32,21 @@ class Character(DynamicObject):
         if self._water < 0:
             self.destroy = True
         
-        if self.myDX > 0 and self.myCollisions[0] == 0 or self.myDX < 0 and self.myCollisions[1] == 0 or self.myDX == 0:
-            self.myLastX = self.myX
-            self.myX += self.myDX
+        if self._dx > 0 and self._collisions[0] == 0 or self._dx < 0 and self._collisions[1] == 0 or self._dx == 0:
+            self._last_x = self._x
+            self._x += self._dx
         #else:
             #self.myX = self.myLastX
-        if self.myDY > 0 and self.myCollisions[3] == 0 or self.myDY < 0 and self.myCollisions[2] == 0 or self.myDY == 0:
-            self.myLastY = self.myY
-            self.myY += self.myDY
+        if self._dy > 0 and self._collisions[3] == 0 or self._dy < 0 and self._collisions[2] == 0 or self._dy == 0:
+            self._last_y = self._y
+            self._y += self._dy
         #else:
             #self.myY = self.myLastY
-        self.rightCollision = 0
-        self.leftCollision = 0
-        self.topCollision = 0
-        self.bottomCollision = 0
-        self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
+        self._right_collision = 0
+        self._left_collision = 0
+        self._top_collision = 0
+        self._bottom_collision = 0
+        self._collisions = [self._right_collision, self._left_collision, self._top_collision, self._bottom_collision]
         
     def collide(self, otherObject, collisionAngle):
         if otherObject is not self:
@@ -57,32 +57,32 @@ class Character(DynamicObject):
                 self._damage_cooldown = 0
                 otherObject.set_visible()
                     
-            if collisionAngle == "Right" and self.myDX > 0:
-                self.rightCollision = 1
+            if collisionAngle == "Right" and self._dx > 0:
+                self._right_collision = 1
                 if otherObject.type() is "pushable":
-                    otherObject.myDX = 2
+                    otherObject._dx = 2
                 #self.myDX = 0
                 #self.myX = otherObject.getX() - self.myW
                 
-            if collisionAngle == "Left" and self.myDX < 0:
-                self.leftCollision = 1
+            if collisionAngle == "Left" and self._dx < 0:
+                self._left_collision = 1
                 if otherObject.type() is "pushable":
-                    otherObject.myDX = -2
+                    otherObject._dx = -2
                 #self.myDX = 0
                 #self.myX = otherObject.getX() + otherObject.getW()
-            if collisionAngle == "Top" and self.myDY < 0:
-                self.topCollision = 1
+            if collisionAngle == "Top" and self._dy < 0:
+                self._top_collision = 1
                 if otherObject.type() is "pushable":
-                    otherObject.myDY = -2
+                    otherObject._dy = -2
                 #self.myDY = 0
                 #self.myY = otherObject.getY() + otherObject.getH()
-            if collisionAngle == "Bottom" and self.myDY > 0:
-                self.bottomCollision = 1
+            if collisionAngle == "Bottom" and self._dy > 0:
+                self._bottom_collision = 1
                 if otherObject.type() is "pushable":
-                    otherObject.myDY = 2
+                    otherObject._dy = 2
                 #self.myDY = 0
                 #self.myY = otherObject.getY() - self.myH
-            self.myCollisions = [self.rightCollision, self.leftCollision, self.topCollision, self.bottomCollision]
+            self._collisions = [self._right_collision, self._left_collision, self._top_collision, self._bottom_collision]
         
     def perceive(self, staticObjects, dynamicObjects, x, y):
         '''

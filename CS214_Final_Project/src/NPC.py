@@ -27,12 +27,12 @@ class NPC(Character):
         '''
         Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25
-        self.myW = WINDOW_WIDTH / 25
-        self.myDX = 0
-        self.myDY = 0
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25
+        self._w = WINDOW_WIDTH / 25
+        self._dx = 0
+        self._dy = 0
         self.step_counter = 0
         self.water_priority = priority_variable(self._water)
         self.food_priority = priority_variable(self._food)
@@ -42,7 +42,7 @@ class NPC(Character):
                  [self.companionship_priority, False, 6000, "NPC", 5]]
     
         self.myPriorities = Priorities(goals)    
-        self.intelligence = Intelligence(self._experience, self.myPriorities, self.myW, self.myH)
+        self.intelligence = Intelligence(self._experience, self.myPriorities, self._w, self._h)
     def perceive(self, staticObjects, dynamicObjects):
         '''
         Receive: staticObjects, dynamicObjects, levelInfo
@@ -50,7 +50,7 @@ class NPC(Character):
                       dynamicObjects is a list of DynamicObject
                       levelInfo is a list containing the level name, x, and y PositionTest
         '''
-        self._experience.perceive(staticObjects, dynamicObjects, self.myX, self.myY, self._water, self._food, self._loneliness)
+        self._experience.perceive(staticObjects, dynamicObjects, self._x, self._y, self._water, self._food, self._loneliness)
         
     
     def step(self):
@@ -62,13 +62,13 @@ class NPC(Character):
         if self.step_counter == 9:
             move = self.intelligence.getMove()
             if move == 0:
-                self.myDX = 2
+                self._dx = 2
             if move == 1:
-                self.myDX = -2
+                self._dx = -2
             if move == 2:
-                self.myDY = -2
+                self._dy = -2
             if move == 3:
-                self.myDY = 2
+                self._dy = 2
             self.step_counter = 0
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, [0, 255, 0], [self.myX, self.myY, self.myW, self.myH])   
+        draw.rect(gameDisplay, [0, 255, 0], [self._x, self._y, self._w, self._h])   

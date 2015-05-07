@@ -18,10 +18,10 @@ class water_resource(StaticObject):
         '''
         Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25
-        self.myW = WINDOW_WIDTH / 25
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25
+        self._w = WINDOW_WIDTH / 25
         self.cooldown = 600
     def get_water(self):
         if self.cooldown == 600:
@@ -31,9 +31,9 @@ class water_resource(StaticObject):
             return 0
     def draw(self, gameDisplay, draw):
         if self.cooldown < 600:
-            draw.rect(gameDisplay, [100, 100, 200], [self.myX, self.myY, self.myW, self.myH])
+            draw.rect(gameDisplay, [100, 100, 200], [self._x, self._y, self._w, self._h])
             # I am going to cheat and put this logic in the draw loop. It will save a ton of step() calls
             self.cooldown += 1
         else:
-            draw.rect(gameDisplay, [0, 0, 255], [self.myX, self.myY, self.myW, self.myH])
+            draw.rect(gameDisplay, [0, 0, 255], [self._x, self._y, self._w, self._h])
             

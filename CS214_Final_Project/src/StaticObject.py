@@ -16,20 +16,20 @@ class StaticObject(GameObject):
         '''
         Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25
-        self.myW = WINDOW_WIDTH / 25
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25
+        self._w = WINDOW_WIDTH / 25
         
     
     def _init_(self, x, y, w, h):
         '''
         Second Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = w
-        self.myY = h
+        self._x = x
+        self._y = y
+        self._h = w
+        self._y = h
         
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, 0, [self.myX, self.myY, self.myW, self.myH])
+        draw.rect(gameDisplay, 0, [self._x, self._y, self._w, self._h])

@@ -37,8 +37,8 @@ class Level(object):
         '''
         height = 0
         width = 0
-        self.myX = x
-        self.myY = y
+        self._x = x
+        self._y = y
         self.myStaticObjects = []
         self.myDynamicObjects = []
         file = open(fileName, "r")
@@ -163,7 +163,7 @@ class Level(object):
         return self.player
     '''
     def addDynamicObject(self, dynamicObject):
-        dynamicObject.changeLocation([self.myX, self.myY])
+        dynamicObject.changeLocation([self._x, self._y])
         self.myDynamicObjects.append(dynamicObject)
         if dynamicObject.getX() > self.width:
             dynamicObject.setX(0)

@@ -18,10 +18,10 @@ class plant_trap(DynamicObject):
         Constructor
         '''
         super()
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25
-        self.myW = WINDOW_WIDTH / 25 
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25
+        self._w = WINDOW_WIDTH / 25 
         self.sprite = sprite("images\plant\plant.dat")
         self.sprite.set_rate(0)       
     def step(self):
@@ -32,6 +32,6 @@ class plant_trap(DynamicObject):
     def set_visible(self):
         self.sprite.set_rate(1)
     def draw(self, gameDisplay, draw):
-        self.sprite.draw(gameDisplay, self.myX, self.myY)
+        self.sprite.draw(gameDisplay, self._x, self._y)
         if self.sprite.is_animation_done():
             self.sprite.set_rate(0)

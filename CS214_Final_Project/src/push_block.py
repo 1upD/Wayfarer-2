@@ -16,17 +16,17 @@ class push_block(DynamicObject.DynamicObject):
         '''
         Constructor
         '''
-        self.myX = x
-        self.myY = y
-        self.myH = WINDOW_HEIGHT / 25 - 4
-        self.myW = WINDOW_WIDTH / 25 - 4
-        self.myDX = 0
-        self.myDY = 0
+        self._x = x
+        self._y = y
+        self._h = WINDOW_HEIGHT / 25 - 4
+        self._w = WINDOW_WIDTH / 25 - 4
+        self._dx = 0
+        self._dy = 0
     
     def step(self):
         DynamicObject.DynamicObject.step(self)
-        self.myDY /= 2
-        self.myDX /= 2
+        self._dy /= 2
+        self._dx /= 2
                 
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, 100, [self.myX, self.myY, self.myW, self.myH])   
+        draw.rect(gameDisplay, 100, [self._x, self._y, self._w, self._h])   
