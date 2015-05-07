@@ -16,10 +16,6 @@ class DynamicObject(GameObject):
     _dx = 0
     _dy = 0
     _collisions = [0, 0, 0, 0]
-    _right_collision = 0
-    _left_collision = 0
-    _top_collision = 0
-    _bottom_collision = 0
     destroy = False
        
     def __init__(self, x, y):
@@ -46,23 +42,13 @@ class DynamicObject(GameObject):
         Function to apply a collision to the object's collision vector
         '''
         if collisionAngle == "Right" and self._dx > 0:
-            self._right_collision = 1
-            #self._dx = 0
-            #self.myX = otherObject.getX() - self.myW
-            
+            self._collisions[0] = 1
         if collisionAngle == "Left" and self._dx < 0:
-            self._left_collision = 1
-            #self._dx = 0
-            #self.myX = otherObject.getX() + otherObject.getW()
+            self._collisions[1] = 1
         if collisionAngle == "Top" and self._dy < 0:
-            self._top_collision = 1
-            #self._dy = 0
-            #self.myY = otherObject.getY() + otherObject.getH()
+            self._collisions[2] = 1
         if collisionAngle == "Bottom" and self._dy > 0:
-            self._bottom_collision = 1
-            #self._dy = 0
-            #self.myY = otherObject.getY() - self.myH
-        self._collisions = [self._right_collision, self._left_collision, self._top_collision, self._bottom_collision]
+            self._collisions[3] = 1
   
     def step(self):
         # If there is no collision, apply the object's x velocity
@@ -72,11 +58,7 @@ class DynamicObject(GameObject):
         if self._dy > 0 and self._collisions[3] == 0 or self._dy < 0 and self._collisions[2] == 0 or self._dy == 0:
             self._y += self._dy
         # Reset the collision vector
-        self._right_collision = 0
-        self._left_collision = 0
-        self._top_collision = 0
-        self._bottom_collision = 0
-        self._collisions = [self._right_collision, self._left_collision, self._top_collision, self._bottom_collision]
+        self._collisions = [0, 0, 0, 0]
     
     def changeLocation(self, location):
         '''

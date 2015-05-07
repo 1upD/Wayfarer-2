@@ -4,7 +4,7 @@ Created on Apr 14, 2015
 @author: Derek Dik
 '''
 
-from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH, water_resource_value
+from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH, WATER_RESOURCE_VALUE
 from src.StaticObject import StaticObject
 
 class water_resource(StaticObject):
@@ -13,7 +13,7 @@ class water_resource(StaticObject):
     '''
 
     _type = "water_resource"
-    resource_value = water_resource_value
+    resource_value = WATER_RESOURCE_VALUE
     def __init__(self, x, y):
         '''
         Constructor
