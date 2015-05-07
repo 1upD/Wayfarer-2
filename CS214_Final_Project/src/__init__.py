@@ -10,19 +10,15 @@ from src.Level import Level
 from src.Bounce import Bounce
 from src.Player import Player
 from src.NPC import NPC
+from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
 
-# Constants
-WINDOW_WIDTH = 700
-WINDOW_HEIGHT = 700
-OFFSET = 0
 
 # Initialize pygame
 pygame.init()
 # Create a new window, set to 
-gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), HWSURFACE | DOUBLEBUF | RESIZABLE)
-                                      #FULLSCREEN | HWSURFACE | DOUBLEBUF | RESIZABLE)
+gameDisplay = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT), FULLSCREEN | HWSURFACE | DOUBLEBUF | RESIZABLE)
 # Set the caption to be the title of the game
-pygame.display.set_caption("Dog Eat Dog")
+pygame.display.set_caption("Wayfarer 2")
 # Update the display
 pygame.display.flip()
 
@@ -60,14 +56,10 @@ currentLevel = levels[1][2]
 # Initialize the player
 player = Player(100, 100)
 currentLevel.resetPlayer(player)
-#bounce = NPC(198, 198, 18, 18)
-#currentLevel.addDynamicObject(bounce)
 
 # Start the clock
 clock = pygame.time.Clock()
 
-for i in range(10000, 10090):
-    print("images\\plant\\Plantrap" + str(i) + ".png")
 '''
 Main loop
 '''
@@ -81,13 +73,16 @@ while not gameExit:
         
     # Update the screen
     pygame.display.update()
-        
+
+    # Tick the clock by one frame        
     clock.tick(30)
     
     # Event loop
     for event in pygame.event.get():   
+        # Quit event
         if event.type == pygame.QUIT:
             gameExit = True
+        # Keyboard down event
         if event.type == pygame.KEYDOWN:
             if event.key == 119:
                 currentLevel.keyboardUp()
@@ -100,6 +95,7 @@ while not gameExit:
             if event.key == 27:
                 pygame.quit()
                 gameExit = True
+        # Keyboard up event
         if event.type == pygame.KEYUP:
             # Up key
             if event.key == 119:
@@ -124,28 +120,41 @@ while not gameExit:
     # for row in levels:
     #    for level in row:
     level = currentLevel
+    # Run the level for one frame
     level.step()
+    ''' Handle transitions for the room '''
+    # Get all objects moving from the current room to another
     transitioningObjects = level.checkForTransition()
+    # For each object
     for transitioningObject in transitioningObjects:
+        # Get the direction of the transition
         transition = transitioningObject[1]
-        if transitioningObject[1] != "None":
+        # If there is a transition
+        if transition != "None":
+            # Set the coordinates to (0,0)
             levelX = 0
             levelY = 0
-            
+            # For each row of rooms
             for row in range(len(levels)):
+                # For each room within the row
                 for column in range(len(levels[row])):
+                    # If the room at this position is the current level
                     if levels[row][column] == level:
+                        # Initialize variables to store the coordinates of this level
                         levelY = row
                         levelX = column
             
-            
+            # If the transition direction is "Up"
             if transition == "Up":
+                # If the object is the player
                 if transitioningObject[0].type() == "Player":
-                    #player = currentLevel.extractPlayer()
+                    # Update the current level coordinates
                     currentLevelY -= 1
                     currentLevel = levels[currentLevelY][currentLevelX]
                     currentLevel.resetPlayer(player)
+                # Otherwise
                 else:
+                    # Add the object to the proper level
                     levels[levelY - 1][levelX].addDynamicObject(transitioningObject[0])
             elif transition == "Down":
                 if transitioningObject[0].type() == "Player":
@@ -174,29 +183,5 @@ while not gameExit:
                 else:
                     levels[levelY][levelX + 1].addDynamicObject(transitioningObject[0])
 
-
-'''
-    transition = currentLevel.checkForTransition()
-    if transition == "Up":
-        player = currentLevel.extractPlayer()
-        currentLevelY -= 1
-        currentLevel = levels[currentLevelY][currentLevelX]
-        currentLevel.resetPlayer(player)
-    elif transition == "Down":
-        player = currentLevel.extractPlayer()
-        currentLevelY += 1
-        currentLevel = levels[currentLevelY][currentLevelX]
-        currentLevel.resetPlayer(player)
-    elif transition == "Left":
-        player = currentLevel.extractPlayer()
-        currentLevelX -= 1
-        currentLevel = levels[currentLevelY][currentLevelX]
-        currentLevel.resetPlayer(player)
-    elif transition == "Right":
-        player = currentLevel.extractPlayer()
-        currentLevelX += 1
-        currentLevel = levels[currentLevelY][currentLevelX]
-        currentLevel.resetPlayer(player)
-'''
     
 sys.exit()
