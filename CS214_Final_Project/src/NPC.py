@@ -19,8 +19,8 @@ class NPC(Character):
     classdocs
     '''
     
-    myType = "NPC"
-    mySightRadius = 200
+    _type = "NPC"
+    _sight_radius = 200
     myPriorities = 0
     
     def __init__(self, x, y, w, h):
@@ -34,15 +34,15 @@ class NPC(Character):
         self.myDX = 0
         self.myDY = 0
         self.step_counter = 0
-        self.water_priority = priority_variable(self.water)
-        self.food_priority = priority_variable(self.food)
-        self.companionship_priority = priority_variable(self.loneliness)
+        self.water_priority = priority_variable(self._water)
+        self.food_priority = priority_variable(self._food)
+        self.companionship_priority = priority_variable(self._loneliness)
         goals = [[self.water_priority, True, 15, "Resource", 10],
                  [self.food_priority, True, 15, "Food", 9],
                  [self.companionship_priority, False, 6000, "NPC", 5]]
     
         self.myPriorities = Priorities(goals)    
-        self.intelligence = Intelligence(self.myExperience, self.myPriorities, self.myW, self.myH)
+        self.intelligence = Intelligence(self._experience, self.myPriorities, self.myW, self.myH)
     def perceive(self, staticObjects, dynamicObjects):
         '''
         Receive: staticObjects, dynamicObjects, levelInfo
@@ -50,14 +50,14 @@ class NPC(Character):
                       dynamicObjects is a list of DynamicObject
                       levelInfo is a list containing the level name, x, and y PositionTest
         '''
-        self.myExperience.perceive(staticObjects, dynamicObjects, self.myX, self.myY, self.water, self.food, self.loneliness)
+        self._experience.perceive(staticObjects, dynamicObjects, self.myX, self.myY, self._water, self._food, self._loneliness)
         
     
     def step(self):
         Character.step(self)
-        self.water_priority.update(self.water)
-        self.food_priority.update(self.water)
-        self.companionship_priority.update(self.loneliness)
+        self.water_priority.update(self._water)
+        self.food_priority.update(self._water)
+        self.companionship_priority.update(self._loneliness)
         self.step_counter += 1
         if self.step_counter == 9:
             move = self.intelligence.getMove()

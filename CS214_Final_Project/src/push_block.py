@@ -11,7 +11,7 @@ class push_block(DynamicObject.DynamicObject):
     models a block which can be moved by the player or by an NPC
     '''
     
-    myType = "pushable"
+    _type = "pushable"
     def __init__(self, x, y):
         '''
         Constructor

@@ -21,9 +21,9 @@ class Bounce(NPC):
         '''
         Constructor
         '''
-        self.water_priority = priority_variable(self.water)
-        self.food_priority = priority_variable(self.food)
-        self.companionship_priority = priority_variable(self.loneliness)
+        self.water_priority = priority_variable(self._water)
+        self.food_priority = priority_variable(self._food)
+        self.companionship_priority = priority_variable(self._loneliness)
         goals = [[self.water_priority, True, 15, "Resource", 10],
                  [self.food_priority, True, 15, "Food", 9],
                  [self.companionship_priority, False, 6000, "NPC", 5]]

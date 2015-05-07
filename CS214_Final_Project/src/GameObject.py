@@ -12,7 +12,7 @@ class GameObject(object):
     myY = 0
     myH = 0
     myW = 0
-    myType = "GameObject"
+    _type = "GameObject"
     
     def __init__(self, x, y):
         '''
@@ -46,7 +46,7 @@ class GameObject(object):
         return self.myH
     
     def type(self):
-        return self.myType
+        return self._type
     
     def testCollision(self, otherObject):
         if otherObject is not self: 

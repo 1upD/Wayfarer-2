@@ -11,7 +11,7 @@ class StaticObject(GameObject):
     '''
     classdocs
     '''
-    myType = "Static Object"
+    _type = "Static Object"
     def __init__(self, x, y):
         '''
         Constructor

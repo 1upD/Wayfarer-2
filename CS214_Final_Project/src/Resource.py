@@ -12,7 +12,7 @@ class water_resource(StaticObject):
     Models a dispenser from which a user can refill water
     '''
 
-    myType = "water_resource"
+    _type = "water_resource"
     resource_value = water_resource_value
     def __init__(self, x, y):
         '''

@@ -1,7 +1,7 @@
 '''
 Created on Apr 14, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 from src.DynamicObject import DynamicObject
 from src.StaticObject import StaticObject
@@ -11,29 +11,25 @@ from src.Experience import Experience
 
 class Character(DynamicObject):
     '''
-    classdocs
+    Superclass to define a dynamic object that represents a character
     '''
 
-    water = 3000
-    food = 6000
-    loneliness = 0
-    myExperience = Experience()    
-    damage_cooldown = 0
-    myType = "NPC"
-    mySightRadius = 200
-
-    def __init__(self, params):
-        '''
-        Constructor
-        '''
+    # Instance variables
+    _water = 3000
+    _food = 6000
+    _loneliness = 0
+    _experience = Experience()    
+    _damage_cooldown = 0
+    _type = "NPC"
+    _sight_radius = 200
 
 
     def step(self):
-        self.damage_cooldown += 1
-        self.water -= 1
-        self.food -= 1
-        self.loneliness += 1
-        if self.water < 0:
+        self._damage_cooldown += 1
+        self._water -= 1
+        self._food -= 1
+        self._loneliness += 1
+        if self._water < 0:
             self.destroy = True
         
         if self.myDX > 0 and self.myCollisions[0] == 0 or self.myDX < 0 and self.myCollisions[1] == 0 or self.myDX == 0:
@@ -54,11 +50,11 @@ class Character(DynamicObject):
         
     def collide(self, otherObject, collisionAngle):
         if otherObject is not self:
-            if otherObject.myType == "water_resource":
-                self.water += otherObject.get_water()
-            elif otherObject.myType == "predator" and self.damage_cooldown > 30:
-                self.water -= 300
-                self.damage_cooldown = 0
+            if otherObject._type == "water_resource":
+                self._water += otherObject.get_water()
+            elif otherObject._type == "predator" and self._damage_cooldown > 30:
+                self._water -= 300
+                self._damage_cooldown = 0
                 otherObject.set_visible()
                     
             if collisionAngle == "Right" and self.myDX > 0:
@@ -94,7 +90,7 @@ class Character(DynamicObject):
         '''
 
     def changeLocation(self, location):
-        self.myExperience.changeLocation(location)        
+        self._experience.changeLocation(location)        
         
     
     

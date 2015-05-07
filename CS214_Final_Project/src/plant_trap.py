@@ -12,8 +12,7 @@ class plant_trap(DynamicObject):
     plant_trap models an enemy underground that springs up on contact with the player
     '''
 
-    animation_count = 91
-    myType = "predator"
+    _type = "predator"
     def __init__(self, x, y):
         '''
         Constructor
@@ -24,16 +23,15 @@ class plant_trap(DynamicObject):
         self.myH = WINDOW_HEIGHT / 25
         self.myW = WINDOW_WIDTH / 25 
         self.sprite = sprite("images\plant\plant.dat")
-        
+        self.sprite.set_rate(0)       
     def step(self):
         DynamicObject.step(self)
         if self._opacity > 0:
             self._opacity -= 1
             
     def set_visible(self):
-        self.animation_count = 0
+        self.sprite.set_rate(1)
     def draw(self, gameDisplay, draw):
-        if self.animation_count < 91:
-            self.sprite.draw(gameDisplay, draw, self.myX, self.myY)
-            self.animation_count += 1
-            # draw.rect(gameDisplay, [255, 0, 0, self._opacity], [self.myX, self.myY, self.myW, self.myH]) 
+        self.sprite.draw(gameDisplay, self.myX, self.myY)
+        if self.sprite.is_animation_done():
+            self.sprite.set_rate(0)

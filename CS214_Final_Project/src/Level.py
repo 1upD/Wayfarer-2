@@ -114,7 +114,7 @@ class Level(object):
         #Step
         for dynamicObject in self.myDynamicObjects:
             dynamicObject.step()
-            if dynamicObject.myType == "NPC":
+            if dynamicObject._type == "NPC":
                 dynamicObject.perceive(self.myStaticObjects, self.myDynamicObjects)
             if dynamicObject.destroy:
                 self.myDynamicObjects.remove(dynamicObject)

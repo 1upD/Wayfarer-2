@@ -12,7 +12,7 @@ class simple_predator(DynamicObject.DynamicObject):
     '''
     models a simple creature that will move with random direction
     '''
-    myType = "predator"
+    _type = "predator"
     move_counter = 0
     def __init__(self, x, y):
         '''

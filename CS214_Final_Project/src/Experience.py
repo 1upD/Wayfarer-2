@@ -17,9 +17,9 @@ class Experience(object):
     myObstacles = [] 
     x = 0
     y = 0
-    water = 0
-    food = 0
-    loneliness = 0
+    _water = 0
+    _food = 0
+    _loneliness = 0
     def __init__(self):
         '''
         Constructor
@@ -36,17 +36,17 @@ class Experience(object):
                 print("Spotted new entity and committed to long term memory: " + entity.type())
         self.x = x
         self.y = y
-        self.water = water
-        self.food = food
-        self.loneliness = loneliness
+        self._water = water
+        self._food = food
+        self._loneliness = loneliness
         
     def get_water(self):
-        return self.water
+        return self._water
     
     def get_food(self):
-        return self.food
+        return self._food
     def get_loneliness(self):
-        return self.loneliness
+        return self._loneliness
     
     def getSurroundings(self):
         '''

@@ -7,6 +7,7 @@ from src import DynamicObject
 from _random import Random
 from random import random, randint
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
+from src.sprite import sprite
 
 class prey_animal(DynamicObject.DynamicObject):
     '''
@@ -24,7 +25,8 @@ class prey_animal(DynamicObject.DynamicObject):
         self.myH = WINDOW_HEIGHT / 25
         self.myW = WINDOW_WIDTH / 25 
         self.myDY = randint(-2, 2)
-        self.myDX = randint(-2, 2)       
+        self.myDX = randint(-2, 2)     
+        self._sprite = sprite("images\\swarm\\swarm.dat")  
         
     def step(self):
         DynamicObject.DynamicObject.step(self) 
@@ -34,6 +36,5 @@ class prey_animal(DynamicObject.DynamicObject):
             self.myDX = randint(-2, 2)
             self.move_counter = 0
    
-    def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, [255, 255, 0], [self.myX, self.myY, self.myW, self.myH])  
-        
+    def draw(self, gameDisplay, draw): 
+        self._sprite.draw(gameDisplay, self.myX, self.myY)

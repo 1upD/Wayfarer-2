@@ -79,7 +79,7 @@ class Intelligence(object):
         return legal
     def evaluate(self, position):
         # Hard code needs for now, for testing purposes
-        score = position.water
+        score = position._water
         
         for entity in position.dynamicObjects:
             if entity.type() == "Resource":
@@ -93,21 +93,21 @@ class Intelligence(object):
     class _position(object):
         x = 0
         y = 0
-        water = 0
-        food = 0
-        loneliness = 0
+        _water = 0
+        _food = 0
+        _loneliness = 0
         points = 0
         def __init__(self, x, y, w, h, food, water, dynamicObjects, loneliness):
             self.x = x
             self.y = y
             self.w = w
             self.h = h
-            self.water = water
-            self.food = food
-            self.loneliness = loneliness
+            self._water = water
+            self._food = food
+            self._loneliness = loneliness
             self.dynamicObjects = list(dynamicObjects)
         def duplicate(self):
-            new_position = Intelligence._position(self.x, self.y, self.w, self.h, self.food, self.water, self.dynamicObjects, self.loneliness)
+            new_position = Intelligence._position(self.x, self.y, self.w, self.h, self._food, self._water, self.dynamicObjects, self._loneliness)
             new_position.points = self.points
             return new_position
         
@@ -120,14 +120,14 @@ class Intelligence(object):
                 self.y -= 18
             elif move == 3:
                 self.y += 18
-            self.water -= 18
-            self.food -= 18
-            self.loneliness += 18
+            self._water -= 18
+            self._food -= 18
+            self._loneliness += 18
             for entity in self.dynamicObjects:
                 if self.collide(entity):
                     if entity.type() is "Resource":
                         self.dynamicObjects.remove(entity)
-                        self.water += 300
+                        self._water += 300
                         self.points += 300
         def collide(self, entity):
             return abs(self.x - entity.getX()) < self.w and abs(self.y - entity.getY()) < self.h               
