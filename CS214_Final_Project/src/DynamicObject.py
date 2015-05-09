@@ -1,6 +1,5 @@
 '''
 Created on Apr 4, 2015
-
 @author: Derek Dik
 '''
 from src.GameObject import GameObject

@@ -4,13 +4,9 @@ Created on Mar 15, 2015
 @author: 1upde_000
 '''
 
-from test.test_buffer import numpy_array
+import pygame
 
-from src.DynamicObject import DynamicObject
-from src.GameObject import GameObject
 from src.Globals import WINDOW_HEIGHT
-from src.Player import Player
-from src.Resource import Resource
 from src.StaticObject import StaticObject
 from src.push_block import push_block
 from src.prey_animal import prey_animal
@@ -31,7 +27,6 @@ class Level(object):
     _height = 0
     TILE_SIZE = WINDOW_HEIGHT / 25
     _description = ""
-
     
     def __init__(self, fileName, x, y):
         '''
@@ -45,7 +40,10 @@ class Level(object):
         self._dynamic_objects = []
         
         # Open the room file
-        file = open(fileName, "r")
+        file = open(fileName + "\\room.dat", "r")
+        
+        # Load in the image
+        self._image = pygame.image.load(fileName + "\\background.png")
         
         # Initialize a new list to store room data
         tiles = []
@@ -94,6 +92,8 @@ class Level(object):
                 
         
     def draw(self, gameDisplay, draw):
+        gameDisplay.blit(self._image, (0, 0))
+        
         for staticObject in self._static_objects:
             staticObject.draw(gameDisplay, draw)
         for dynamicObject in self._dynamic_objects:

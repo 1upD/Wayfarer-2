@@ -32,4 +32,5 @@ class StaticObject(GameObject):
         self._y = h
         
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, 0, [self._x, self._y, self._w, self._h])
+        ''' Do nothing '''
+        # draw.rect(gameDisplay, 0, [self._x, self._y, self._w, self._h])

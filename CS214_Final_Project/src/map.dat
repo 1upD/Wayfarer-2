@@ -1,4 +1,4 @@
-blank.dat transitional_area_1.dat main_crash_site.dat the_pass.dat stony_maze.dat river_run.dat
-blank.dat transitional_area_2.dat central_hub_area.dat room_right.dat lakefront.dat the_nursery.dat
-quarry_area_2.dat the_fork.dat room_down.dat transition_area_3.dat transition_area_4.dat blank.dat
-quarry_area_3.dat quarry_area_4.dat transition_area_5.dat quarry_area_5.dat
+00_blank 01_transitional_area_1 02_crash_site 03_the_pass 04_stony_maze 05_river_run
+00_blank 11_transitional_area_2 12_central_hub_area 13_room_right 14_lakefront 15_the_nursery
+20_quarry_area_2 21_the_fork 22_room_down 23_transition_area_3 24_transition_area_4 00_blank
+30_quarry_area_3 31_quarry_area_4 32_transition_area_5 33_quarry_area_5

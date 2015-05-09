@@ -40,7 +40,7 @@ for line in map_file:
     # For each file in the line
     for j in range(0, len(files)):
         # Add a new level to the row
-        levelRow[j] = Level(files[j], i, j)
+        levelRow[j] = Level("maps\\" + files[j], i, j)
     # Add the row of levels to the level list    
     levels.append(levelRow)
     # Tick
