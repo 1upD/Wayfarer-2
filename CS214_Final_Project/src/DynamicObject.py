@@ -17,6 +17,7 @@ class DynamicObject(GameObject):
     _dy = 0
     _collisions = [0, 0, 0, 0]
     destroy = False
+    _direction = 0
        
     def __init__(self, x, y):
         '''
@@ -69,7 +70,38 @@ class DynamicObject(GameObject):
         '''
         Do nothing
         '''
+    
+
+    def get_direction(self):
+        ''' Choose a _direction based on object speed '''
+        if self._dx > 0 and self._dy == 0:
+            self._direction = 0
+        elif self._dx > 0 and self._dy < 0:
+            self._direction = 45
+        elif self._dx == 0 and self._dy < 0:
+            self._direction = 90
+        elif self._dx < 0 and self._dy < 0:
+            self._direction = 135
+        elif self._dx < 0 and self._dy == 0:
+            self._direction = 180
+        elif self._dx < 0 and self._dy > 0:
+            self._direction = 225
+        elif self._dx == 0 and self._dy > 0:
+            self._direction = 270
+        elif self._dx > 0 and self._dy > 0:
+            self._direction = 315
+        return self._direction
+
+    def draw(self, gameDisplay, draw):
+        GameObject.draw(self, gameDisplay, draw)
         
+        # Set _sprite speed
+        if self._dx == 0 and self._dy == 0:
+            self._sprite.set_rate(0)
+        else:
+            self._sprite.set_rate(1)
+        # Draw the _sprite
+        self._sprite.draw_with_direction(gameDisplay, self.get_direction(), self._x, self._y)
     '''
     Accessors and mutators
     '''

@@ -35,6 +35,3 @@ class prey_animal(DynamicObject.DynamicObject):
             self._dy = randint(-2, 2)
             self._dx = randint(-2, 2)
             self.move_counter = 0
-   
-    def draw(self, gameDisplay, draw): 
-        self._sprite.draw(gameDisplay, self._x, self._y)

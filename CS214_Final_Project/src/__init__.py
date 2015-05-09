@@ -11,6 +11,7 @@ from src.Bounce import Bounce
 from src.Player import Player
 from src.NPC import NPC
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
+from src.GameTimer import count_step
 
 
 # Initialize pygame
@@ -65,6 +66,9 @@ Main loop
 '''
 gameExit = False
 while not gameExit:
+    # Increment the time by 1
+    count_step()
+    
     # Draw loop
     gameDisplay.fill((255, 255, 255))
     

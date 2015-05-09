@@ -38,6 +38,8 @@ class Character(DynamicObject):
         if otherObject is not self:
             if otherObject._type == "water_resource":
                 self._water += otherObject.get_water()
+            if otherObject._type == "food_resource":
+                self._food += otherObject.get_water()
             elif otherObject._type == "predator" and self._damage_cooldown > 30:
                 self._water -= 300
                 self._damage_cooldown = 0

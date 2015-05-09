@@ -7,10 +7,11 @@ from src import DynamicObject
 from _random import Random
 from random import random, randint
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
+from src.sprite import sprite
 
 class simple_predator(DynamicObject.DynamicObject):
     '''
-    models a simple creature that will move with random direction
+    models a simple creature that will move with random _direction
     '''
     _type = "predator"
     move_counter = 0
@@ -25,6 +26,7 @@ class simple_predator(DynamicObject.DynamicObject):
         self._w = WINDOW_WIDTH / 25 
         self._dy = randint(-2, 2)
         self._dx = randint(-2, 2)       
+        self._sprite = sprite("images\\bug\\bug.dat")  
         
     def step(self):
         DynamicObject.DynamicObject.step(self) 
@@ -33,7 +35,23 @@ class simple_predator(DynamicObject.DynamicObject):
             self._dy = randint(-2, 2)
             self._dx = randint(-2, 2)
             self.move_counter = 0
-   
-    def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, [255, 0, 0], [self._x, self._y, self._w, self._h])  
-        
+            
+    def get_direction(self):
+        # Choose a _direction based on object speed
+        if self._dx > 0 and self._dy == 0:
+            self._direction = 90
+        elif self._dx > 0 and self._dy < 0:
+            self._direction = 135
+        elif self._dx == 0 and self._dy < 0:
+            self._direction = 180
+        elif self._dx < 0 and self._dy < 0:
+            self._direction = 225
+        elif self._dx < 0 and self._dy == 0:
+            self._direction = 270
+        elif self._dx < 0 and self._dy > 0:
+            self._direction = 315
+        elif self._dx == 0 and self._dy > 0:
+            self._direction = 0
+        elif self._dx > 0 and self._dy > 0:
+            self._direction = 45
+        return self._direction

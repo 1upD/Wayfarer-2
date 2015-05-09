@@ -1,2 +1,2 @@
-for i in range(10000, 10030):
-    print("images\\swarm\\Swarm" + str(i) + ".png")
+for i in range(10000, 10031):
+    print("images\\Bug\\Bug" + str(i) + ".png")
