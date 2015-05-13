@@ -1,7 +1,7 @@
 '''
 Created on Mar 15, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 
 import pygame
@@ -14,6 +14,7 @@ from src.simple_predator import simple_predator
 from src.plant_trap import plant_trap
 from src.WaterResource import WaterResource
 from src.FoodResource import FoodResource
+from src.GameTimer import get_time
 
 
 class Level(object):
@@ -27,6 +28,8 @@ class Level(object):
     _height = 0
     TILE_SIZE = WINDOW_HEIGHT / 25
     _description = ""
+    # Timer to start when the player dies
+    _death_rattle = -120
     
     def __init__(self, fileName, x, y):
         '''
@@ -42,8 +45,12 @@ class Level(object):
         # Open the room file
         file = open(fileName + "\\room.dat", "r")
         
-        # Load in the image
-        self._image = pygame.image.load(fileName + "\\background.png")
+        # Load in the background image
+        self._background = pygame.image.load(fileName + "\\background.png")
+        
+        # Load in the foreground image
+        self._foreground = pygame.image.load(fileName + "\\foreground.png")
+        self._foreground = self._foreground.convert_alpha()
         
         # Initialize a new list to store room data
         tiles = []
@@ -92,13 +99,19 @@ class Level(object):
                 
         
     def draw(self, gameDisplay, draw):
-        gameDisplay.blit(self._image, (0, 0))
+
+        gameDisplay.blit(self._background, (0, 0))
+        
+ #       blit_alpha(gameDisplay, self._background, [0, 0], 100)
         
         for staticObject in self._static_objects:
             staticObject.draw(gameDisplay, draw)
         for dynamicObject in self._dynamic_objects:
             dynamicObject.draw(gameDisplay, draw)
-            
+        
+        gameDisplay.blit(self._foreground, (0, 0))
+        # blit_alpha(gameDisplay, self._foreground, [0, 0], 100)
+                    
     def step(self):   
             
         #Test collisions
@@ -115,8 +128,16 @@ class Level(object):
                 dynamicObject.perceive(self._static_objects, self._dynamic_objects)
             if dynamicObject.destroy:
                 self._dynamic_objects.remove(dynamicObject)
+                if dynamicObject._type == "Player":
+                    self._death_rattle = get_time()
 
-            
+    def is_game_over(self):
+        ''' 
+        Function to check each step if the game has ended
+        Returns True if the player is dead
+        '''
+        return get_time() - self._death_rattle == 60
+     
     def checkForTransition(self):
         transitioningObjects = []
         for dynamicObject in self._dynamic_objects:
@@ -193,4 +214,5 @@ class Level(object):
         self.player.setDX(4)
         
     def keyboardReleaseRight(self):
-        self.player.setDX(0)            
+        self.player.setDX(0)
+        
