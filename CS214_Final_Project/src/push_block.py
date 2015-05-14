@@ -5,6 +5,7 @@ Created on Apr 29, 2015
 '''
 from src import DynamicObject
 from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH
+from src.sprite import sprite
 
 class push_block(DynamicObject.DynamicObject):
     '''
@@ -12,6 +13,7 @@ class push_block(DynamicObject.DynamicObject):
     '''
     
     _type = "pushable"
+    _sprite = sprite("images\\block\\block.dat")
     def __init__(self, x, y):
         '''
         Constructor
@@ -29,4 +31,4 @@ class push_block(DynamicObject.DynamicObject):
         self._dx /= 2
                 
     def draw(self, gameDisplay, draw):
-        draw.rect(gameDisplay, 100, [self._x, self._y, self._w, self._h])   
+        self._sprite.draw(gameDisplay, self._x, self._y)   
