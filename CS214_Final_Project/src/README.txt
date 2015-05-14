@@ -1,12 +1,15 @@
-*************************
+*****************
 Readme			*
-*************************
+*****************
 
 DESCRIPTION:
 Search a desolate planet for your lost and precious cargo of human embryos for future colonies. Do not run out of water or protein.
 
 HOW TO RUN:
 This project uses Python 3.4. In order to build, the only required external library is Pygame. I used Pygame 1.9.1 for this project. Simply run the main module, Main.py.
+
+REPOSITORY:
+The Git repository for this project can be found at https://github.com/CRRDerek/CS-214-Final-Project.git.
 
 CREDITS:
 Derek Dik - Python Code
