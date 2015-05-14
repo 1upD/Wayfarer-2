@@ -23,7 +23,7 @@ class sprite(object):
             line = line.strip('\n')
 #            sprite = pygame.image.load("images\\player\\Walkk0000.png")
             sprite = pygame.image.load(line)
-            sprite.convert_alpha()
+#            sprite.convert_alpha()
             print(line)
             self.sprite_list.append(sprite)
             self.total += 1
@@ -44,6 +44,8 @@ class sprite(object):
         return self.current
     def set_rate(self, rate):
         self.rate = rate
+    def set_frame(self, frame):
+        self.current = frame
     def is_animation_done(self):
         return self.current == self.total - 1
 

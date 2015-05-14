@@ -112,6 +112,18 @@ class Experience(object):
         # Memory not found
         return 0
     
+    def sees_player(self):
+        for entity in self.NearbyEntities:
+            if entity.type() == "Player":
+                return True
+        return False
+    
+    def get_player_location(self):
+        for entity in self.NearbyEntities:
+            if entity.type() == "Player":
+                return [entity.getX(), entity.getY()]
+        return [0, 0]
+    
     class Memory(object):
         location = []
         locationDesc = ""

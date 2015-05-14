@@ -15,6 +15,7 @@ from src.plant_trap import plant_trap
 from src.WaterResource import WaterResource
 from src.FoodResource import FoodResource
 from src.GameTimer import get_time
+from src.NPC import NPC
 
 
 class Level(object):
@@ -93,6 +94,9 @@ class Level(object):
                 elif val is "7":
                     new_plant = plant_trap(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self._static_objects.append(new_plant)
+                #elif val is "8":
+                    #npc = NPC(self.TILE_SIZE * column, self.TILE_SIZE * row, self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    #self._dynamic_objects.append(npc)
                     
         self._height = height * self.TILE_SIZE
         self._width = width * self.TILE_SIZE

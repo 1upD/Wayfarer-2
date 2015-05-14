@@ -7,6 +7,7 @@ Created on Apr 14, 2015
 from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH
 from src.StaticObject import StaticObject
 from src.GameTimer import get_time
+from math import floor
 
 class Resource(StaticObject):
     '''
@@ -26,20 +27,21 @@ class Resource(StaticObject):
         self._y = y
         self._h = WINDOW_HEIGHT / 25
         self._w = WINDOW_WIDTH / 25
-        self.cooldown = 600
+        self._cooldown = 600
+        self._sprite.set_rate(0)
     def get_water(self):
         game_time = get_time()
-        if game_time - self.last_use > self.cooldown:
+        if game_time - self.last_use > self._cooldown:
             self.last_use = game_time
             return self._resource_value
         else:
             return 0
     def draw(self, gameDisplay, draw):
-        #if self.cooldown < 600:
-        if get_time() - self.last_use < self.cooldown:
-            draw.rect(gameDisplay, self._color_deactived, [self._x, self._y, self._w, self._h])
+        time_elapsed = get_time() - self.last_use
+        if time_elapsed < self._cooldown:
+            self._sprite.set_frame(floor(time_elapsed / 100))
             # I am going to cheat and put this logic in the draw loop. It will save a ton of step() calls
-            # self.cooldown += 1
+            # self._cooldown += 1
         else:
-            draw.rect(gameDisplay, self._color, [self._x, self._y, self._w, self._h])
-            
+            self._sprite.set_frame(5)
+        self._sprite.draw(gameDisplay, self._x, self._y)

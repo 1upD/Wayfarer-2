@@ -20,31 +20,19 @@ class Intelligence(object):
         self.w = w
         self.h = h
 
-    def getMove(self):
+    def getMove(self, goal):
         position = Intelligence._position(self.experience.get_position()[0], self.experience.get_position()[1], self.w, self.h, self.experience.get_water(), self.experience.get_food(), self.experience.NearbyEntities, self.experience.get_loneliness())
-        return self._search(position, 1)[0]
+        return self._search(position, 1, goal)[0]
     def getKey(self, item):
         return item[0]
-    def _search(self, position, depth):
+    def _search(self, position, depth, goal):
         # If depth is equal to zero, evaluate this position
         if depth == 0:
-            return [0, self.evaluate(position), 0]
+            return [0, self.evaluate(position, goal), 0]
         # Initialize a variable for the best possible position
-        best_value = -9999999999999
+        best_value = 9999999999999
         best_move = 0
         best_depth = 0
-        
-        '''
-        # Best first search
-        move_weights = [[0, 0], [0, 1], [0, 2], [0, 3]]
-        for move in range(0, 3):
-            # If the move can be made
-            if self.legal_move(position, move):
-                new_position = position.duplicate()
-                new_position.move(move)
-                move_weights[move][0] = self.evaluate(new_position)
-        move_weights = sorted(move_weights, key = self.getKey)
-        '''
         
         # For each possible move
         for move in range(0, 3):
@@ -55,12 +43,12 @@ class Intelligence(object):
                 # Test the move
                 new_position.move(move)
                 # Set the best-first heuristic
-                current_value = self.evaluate(new_position)
+                current_value = self.evaluate(new_position, goal)
                 # The value of this move is the result of searching from this position with depth d - 1
-                move_search = self._search(new_position, depth - 1)
+                move_search = self._search(new_position, depth - 1, goal)
                 new_value = move_search[1]
                 # If this value is greater than the best value
-                if new_value > best_value or new_value == best_value and current_value > best_value:
+                if new_value < best_value or new_value == best_value and current_value < best_value:
                     # Set best value to this value
                     best_move = move
                     # Set the best move to be this move
@@ -77,19 +65,21 @@ class Intelligence(object):
             if new_position.collide(entity):
                 legal = False
         return legal
-    def evaluate(self, position):
+    def evaluate(self, position, goal):
+        return abs(position.x - goal [0]) + abs(position.y - 1)
+
+    '''  
+    def evaluate(self, position, goal):
         # Hard code needs for now, for testing purposes
         score = position._water
         
         for entity in position.dynamicObjects:
             if entity.type() == "Resource":
                 score -= 100
-                '''
-                score -= abs(position.x - entity.getX())
-                score -= abs(position.y - entity.getY())
-                '''
         # return position.points
         return score
+    '''
+   
     class _position(object):
         x = 0
         y = 0
