@@ -19,9 +19,9 @@ class StartMenu(object):
         '''
         Constructor
         '''
-        self._background = pygame.image.load("images\\UI\\menubackground.png")
-        self._start_button = GuiButton(250, 200, 200, 100, pygame.image.load("images\\UI\\StartButton.png"))
-        self._quit_button = GuiButton(250, 500, 200, 100, pygame.image.load("images\\UI\\QuitButton.png"))       
+        self._background = pygame.image.load("images\\UI\\Title.png")
+        self._start_button = GuiButton(250, 150, 200, 100, pygame.image.load("images\\UI\\StartButton.png"))
+        self._quit_button = GuiButton(250, 350, 200, 100, pygame.image.load("images\\UI\\QuitButton.png"))       
     
     def draw(self, gameDisplay, mouseX, mouseY):
         # Draw the background

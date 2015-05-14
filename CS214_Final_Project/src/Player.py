@@ -16,6 +16,7 @@ class Player(Character):
 
     _type = "Player"
     _direction = 0
+    _victory = False
     
     def __init__(self, x, y):
         '''
@@ -44,7 +45,14 @@ class Player(Character):
         # Display the food bar
         draw.rect(gameDisplay, [255, 255, 0, 100], [25, 30, self._food / 10, 5])
     def changeLocation(self, location):
-        ''' Dummy definition '''
+        ''' Empty definition '''
         
     def perceive(self, staticObjects, dynamicObjects, x, y):
-        ''' Dummy definition '''
+        ''' Empty definition '''
+    
+    def collide(self, otherObject, collisionAngle):
+        Character.collide(self, otherObject, collisionAngle)
+        if otherObject.type() is "Victory":
+            _victory = True
+    def has_won(self):
+        return self._victory

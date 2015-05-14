@@ -30,7 +30,6 @@ class sprite(object):
         
     def draw(self, gameDisplay, x, y):
         gameDisplay.blit(self.sprite_list[self.current], (x, y))
-        # blit_alpha(gameDisplay, self.sprite_list[self.current], [x, y], 100)
         self.current += self.rate
         if self.current == self.total:
             self.current = 0
@@ -39,7 +38,9 @@ class sprite(object):
         gameDisplay.blit(rot_center(self.sprite_list[self.current], direction), (x, y))
         self.current += self.rate
         if self.current == self.total:
-            self.current = 0
+            self.current = 0 
+            
+    ''' Accessors and mutators'''
     def get_frame(self):
         return self.current
     def set_rate(self, rate):
@@ -49,15 +50,6 @@ class sprite(object):
     def is_animation_done(self):
         return self.current == self.total - 1
 
-# Written at http://www.nerdparadise.com/tech/python/pygame/blitopacity/
-def blit_alpha(target, source, location, opacity):
-        x = location[0]
-        y = location[1]
-        temp = pygame.Surface((source.get_width(), source.get_height())).convert()
-        temp.blit(target, (-x, -y))
-        temp.blit(source, (0, 0))
-        temp.set_alpha(opacity)        
-        target.blit(temp, location)  
 
 # Function from pygame.org         
 def rot_center(image, angle):
@@ -68,3 +60,4 @@ def rot_center(image, angle):
     rot_rect.center = rot_image.get_rect().center
     rot_image = rot_image.subsurface(rot_rect).copy()
     return rot_image
+

@@ -8,9 +8,9 @@ import pygame
 
 from src.GuiButton import GuiButton
 
-class GameOverMenu(object):
+class VictoryMenu(object):
     '''
-    Object to model a menu when the player dies
+    Object to model a menu when the player completes the game
     '''
 
 
@@ -18,8 +18,8 @@ class GameOverMenu(object):
         '''
         Constructor
         '''
-        self._background = pygame.image.load("images\\UI\\gameover2.png")
-        self._quit_button = GuiButton(250, 500, 200, 100, pygame.image.load("images\\UI\\QuitButton.png"))       
+        self._background = pygame.image.load("images\\UI\\Endcard.png")
+        self._quit_button = GuiButton(450, 600, 200, 100, pygame.image.load("images\\UI\\QuitButton.png"))       
     
     def draw(self, gameDisplay, mouseX, mouseY):
         # Draw the background

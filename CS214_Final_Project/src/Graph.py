@@ -1,6 +1,8 @@
 '''
 Created on May 13, 2015
 
+Graph class used for breadth first search.
+
 @author: Derek Dik
 '''
 from queue import Queue

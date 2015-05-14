@@ -15,7 +15,7 @@ from src.plant_trap import plant_trap
 from src.WaterResource import WaterResource
 from src.FoodResource import FoodResource
 from src.GameTimer import get_time
-from src.NPC import NPC
+from src.EndTrigger import EndTrigger
 
 
 class Level(object):
@@ -29,7 +29,7 @@ class Level(object):
     _height = 0
     TILE_SIZE = WINDOW_HEIGHT / 25
     _description = ""
-    # Timer to start when the player dies
+    # Timer to start when the _player dies
     _death_rattle = -120
     
     def __init__(self, fileName, x, y):
@@ -93,11 +93,10 @@ class Level(object):
                     self._dynamic_objects.append(new_predator)
                 elif val is "7":
                     new_plant = plant_trap(self.TILE_SIZE * column, self.TILE_SIZE * row)
-                    self._static_objects.append(new_plant)
-                #elif val is "8":
-                    #npc = NPC(self.TILE_SIZE * column, self.TILE_SIZE * row, self.TILE_SIZE * column, self.TILE_SIZE * row)
-                    #self._dynamic_objects.append(npc)
-                    
+                    self._static_objects.append(new_plant)  
+                elif val is "v":
+                    victory_trigger = EndTrigger(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    self._static_objects.append(victory_trigger)
         self._height = height * self.TILE_SIZE
         self._width = width * self.TILE_SIZE
                 
@@ -106,15 +105,12 @@ class Level(object):
 
         gameDisplay.blit(self._background, (0, 0))
         
- #       blit_alpha(gameDisplay, self._background, [0, 0], 100)
-        
         for staticObject in self._static_objects:
             staticObject.draw(gameDisplay, draw)
         for dynamicObject in self._dynamic_objects:
             dynamicObject.draw(gameDisplay, draw)
         
         gameDisplay.blit(self._foreground, (0, 0))
-        # blit_alpha(gameDisplay, self._foreground, [0, 0], 100)
                     
     def step(self):   
             
@@ -138,10 +134,17 @@ class Level(object):
     def is_game_over(self):
         ''' 
         Function to check each step if the game has ended
-        Returns True if the player is dead
+        Returns True if the _player is dead
         '''
         return get_time() - self._death_rattle == 60
-     
+    
+    def is_game_won(self):
+        ''' 
+        Function to check each step if the _player has found the embryos
+        Returns True if the _player has beaten the game
+        '''
+        return self._player.has_won()
+
     def checkForTransition(self):
         transitioningObjects = []
         for dynamicObject in self._dynamic_objects:
@@ -167,20 +170,27 @@ class Level(object):
                 transitioningObject.append("None")
         return transitioningObjects
     def checkForPlayerTransition(self):
-        if self.player.getX() > self._width:
+        if self._player.getX() > self._width:
             return "Right"
-        elif self.player.getX() < 0:
+        elif self._player.getX() < 0:
             return "Left"
-        elif self.player.getY() < 0:
+        elif self._player.getY() < 0:
             return "Up"
-        elif self.player.getY() > self._height:
+        elif self._player.getY() > self._height:
             return "Down"
         else:
             return "None"
         
     def addDynamicObject(self, dynamicObject):
+        '''
+        Function to add a new dynamic object from a different level to this level
+        '''
+        # Inform the object of the change
         dynamicObject.changeLocation([self._x, self._y])
+        
+        # Add the object to my list of dynamic objects
         self._dynamic_objects.append(dynamicObject)
+        #Adjust the position accordingly
         if dynamicObject.getX() > self._width:
             dynamicObject.setX(0)
         elif dynamicObject.getX() < 0:
@@ -189,34 +199,34 @@ class Level(object):
             dynamicObject.setY(self._height - self.TILE_SIZE)
         elif dynamicObject.getY() > self._height:
             dynamicObject.setY(0)
-        
-               
+           
     def resetPlayer(self, player):
-        self.player = player
+        ''' Adds the _player to the level after a transition '''
+        self._player = player
         self.addDynamicObject(player)
         
-        
+    ''' Keyboard handling functions '''
     def keyboardUp(self):
-        self.player.setDY(-4)
+        self._player.setDY(-4)
         
     def keyboardReleaseUp(self):
-        self.player.setDY(0)
+        self._player.setDY(0)
 
     def keyboardDown(self):
-        self.player.setDY(4)
+        self._player.setDY(4)
         
     def keyboardReleaseDown(self):
-        self.player.setDY(0)
+        self._player.setDY(0)
 
     def keyboardLeft(self):
-        self.player.setDX(-4)
+        self._player.setDX(-4)
         
     def keyboardReleaseLeft(self):
-        self.player.setDX(0)
+        self._player.setDX(0)
         
     def keyboardRight(self):
-        self.player.setDX(4)
+        self._player.setDX(4)
         
     def keyboardReleaseRight(self):
-        self.player.setDX(0)
+        self._player.setDX(0)
         

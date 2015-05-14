@@ -4,9 +4,14 @@ Created on Apr 4, 2015
 @author: 1upde_000
 '''
 
+import abc
+
 class GameObject(object):
+    __metaclass__ = abc.ABCMeta
     '''
-    classdocs
+    Abstract base class inherited by all entities within the game environment. 
+    Stores data regarding bounding size, position, and type and provides the 
+    collision algorithm for any game object.
     '''
     _x = 0
     _y = 0
@@ -68,36 +73,22 @@ class GameObject(object):
             if x - otherObject.getX() < 0 and -(x - otherObject.getX()) < self._w and abs(y - otherObject.getY()) < otherObject.getH():
                 self.collide(otherObject, "Right")
 
-        '''
-        if otherObject != self: 
-            #Bottom side collision
-            if self._x - otherObject.getX() < self._w and otherObject.getY() - self._y < self._h and self._x - otherObject.getX() > -self._w and otherObject.getY() - self._y > 0:
-                self.collide(otherObject, "Bottom")
-            #Top side collision
-            if self._x - otherObject.getX() < self._w:
-                if -(otherObject.getY() - self._y) < otherObject.getH():
-                    if self._x - otherObject.getX() > -self._w:
-                        if otherObject.getY() - self._y < 0:
-                            self.collide(otherObject, "Top")
-            #Left side collision
-            if self._x - otherObject.getX() < otherObject.getW() and abs(self._y - otherObject.getY()) < otherObject.getH() and self._x - otherObject.getX() > 0:
-                self.collide(otherObject, "Left")
-            #Left side collision
-            if self._x - otherObject.getX() < 0 and -(self._x - otherObject.getX()) < self._w and abs(self._y - otherObject.getY()) < otherObject.getH():
-                self.collide(otherObject, "Right")
-        
-    '''              
+    @abc.abstractmethod         
     def collide(self, otherObject, collisionAngle):
         '''
-        Abstract definition
+        Method to call after a collision occurs between this object and another GameObject
         '''
-    
+        return
+    @abc.abstractmethod
     def step(self):
         '''
-        Abstract definition
+        Function to be called by the containing Level every frame
         '''
-        
+        return
+    
+    @abc.abstractmethod
     def draw(self, gameDisplay, draw):
         '''
-        Abstract definition
+        Draw function
         '''
+        return

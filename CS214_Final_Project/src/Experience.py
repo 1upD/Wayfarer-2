@@ -1,7 +1,7 @@
 '''
 Created on Apr 18, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 
 class Experience(object):

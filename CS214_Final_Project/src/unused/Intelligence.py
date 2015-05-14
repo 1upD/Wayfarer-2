@@ -1,13 +1,13 @@
 '''
 Created on Apr 24, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 from pygame.midi import _init
 
 class Intelligence(object):
     '''
-    classdocs
+    Class to model an AI. Receives input from a Priorities and Experience and uses it to make decisions.
     '''
 
 
