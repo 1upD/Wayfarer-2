@@ -1,7 +1,7 @@
 '''
 Created on Apr 4, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 from src.GameObject import GameObject
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
@@ -9,7 +9,7 @@ from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
 
 class StaticObject(GameObject):
     '''
-    classdocs
+    StaticObject is a basic block. It is invisible and it is impassable to most DynamicObjects.
     '''
     _type = "Static Object"
     def __init__(self, x, y):

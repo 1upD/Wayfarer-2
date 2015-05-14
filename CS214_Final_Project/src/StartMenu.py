@@ -1,13 +1,12 @@
 '''
 Created on May 9, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 
 import pygame
 
 from src.GuiButton import GuiButton
-from pip._vendor.colorama.ansi import Back
 
 class StartMenu(object):
     '''

@@ -4,12 +4,11 @@ Created on Apr 29, 2015
 @author: Derek Dik
 '''
 from src import DynamicObject
-from _random import Random
-from random import random, randint
+from random import randint
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
-from src.sprite import sprite
+from src.Sprite import Sprite
 
-class prey_animal(DynamicObject.DynamicObject):
+class PreyAnimal(DynamicObject.DynamicObject):
     '''
     models a simple creature that will move with random direction
     '''
@@ -26,7 +25,7 @@ class prey_animal(DynamicObject.DynamicObject):
         self._w = WINDOW_WIDTH / 25 
         self._dy = randint(-2, 2)
         self._dx = randint(-2, 2)     
-        self._sprite = sprite("images\\swarm\\swarm.dat")  
+        self._sprite = Sprite("images\\swarm\\swarm.dat")  
         
     def step(self):
         DynamicObject.DynamicObject.step(self) 

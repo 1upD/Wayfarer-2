@@ -4,7 +4,7 @@ Created on May 9, 2015
 @author: Derek Dik
 '''
 from src.Resource import Resource
-from src.sprite import sprite
+from src.Sprite import Sprite
 
 class FoodResource(Resource):
     '''
@@ -15,4 +15,4 @@ class FoodResource(Resource):
     _type = "food_resource"
     _color = [0, 255, 0]
     _color_deactived = [100, 200, 100]
-    _sprite = sprite("images/foods/food.dat")
+    _sprite = Sprite("images/foods/food.dat")

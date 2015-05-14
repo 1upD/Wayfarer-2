@@ -6,7 +6,6 @@ Graph class used for breadth first search.
 @author: Derek Dik
 '''
 from queue import Queue
-from pygame.key import get_mods
 from math import floor
 
 

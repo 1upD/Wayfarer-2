@@ -1,7 +1,7 @@
 '''
 Created on Apr 4, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 
 import abc

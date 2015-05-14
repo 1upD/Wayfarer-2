@@ -1,19 +1,19 @@
 '''
 Created on Apr 29, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 from src import DynamicObject
 from src.Globals import WINDOW_HEIGHT, WINDOW_WIDTH
-from src.sprite import sprite
+from src.Sprite import Sprite
 
-class push_block(DynamicObject.DynamicObject):
+class PushBlock(DynamicObject.DynamicObject):
     '''
     models a block which can be moved by the player or by an NPC
     '''
     
     _type = "pushable"
-    _sprite = sprite("images\\block\\block.dat")
+    _sprite = Sprite("images\\block\\block.dat")
     def __init__(self, x, y):
         '''
         Constructor

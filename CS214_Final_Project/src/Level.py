@@ -8,10 +8,10 @@ import pygame
 
 from src.Globals import WINDOW_HEIGHT
 from src.StaticObject import StaticObject
-from src.push_block import push_block
-from src.prey_animal import prey_animal
-from src.simple_predator import simple_predator
-from src.plant_trap import plant_trap
+from src.PushBlock import PushBlock
+from src.PreyAnimal import PreyAnimal
+from src.SimplePredator import SimplePredator
+from src.PlantTrap import PlantTrap
 from src.WaterResource import WaterResource
 from src.FoodResource import FoodResource
 from src.GameTimer import get_time
@@ -83,16 +83,16 @@ class Level(object):
                     newResource  = FoodResource(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self._static_objects.append(newResource)
                 elif val == "4":
-                    new_push_block  = push_block(self.TILE_SIZE * column, self.TILE_SIZE * row) 
+                    new_push_block  = PushBlock(self.TILE_SIZE * column, self.TILE_SIZE * row) 
                     self._dynamic_objects.append(new_push_block)
                 elif val is "5":
-                    new_prey_animal = prey_animal(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    new_prey_animal = PreyAnimal(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self._dynamic_objects.append(new_prey_animal)
                 elif val is "6":
-                    new_predator = simple_predator(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    new_predator = SimplePredator(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self._dynamic_objects.append(new_predator)
                 elif val is "7":
-                    new_plant = plant_trap(self.TILE_SIZE * column, self.TILE_SIZE * row)
+                    new_plant = PlantTrap(self.TILE_SIZE * column, self.TILE_SIZE * row)
                     self._static_objects.append(new_plant)  
                 elif val is "v":
                     victory_trigger = EndTrigger(self.TILE_SIZE * column, self.TILE_SIZE * row)

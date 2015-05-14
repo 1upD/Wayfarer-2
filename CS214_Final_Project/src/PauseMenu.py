@@ -1,7 +1,7 @@
 '''
 Created on May 9, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 
 import pygame

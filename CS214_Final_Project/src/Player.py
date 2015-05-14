@@ -1,17 +1,19 @@
 '''
 Created on Apr 5, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
-from src.DynamicObject import DynamicObject
+
 from src.Character import Character
 from src.Globals import WINDOW_HEIGHT
 from src.Globals import WINDOW_WIDTH
-from src.sprite import sprite
+from src.Sprite import Sprite
 
 class Player(Character):
     '''
-    classdocs
+    Player is the in-game representation of the player character.
+    It is a subclass of Character and has some unique properties
+     as focal point of the player's perspective.
     '''
 
     _type = "Player"
@@ -26,7 +28,7 @@ class Player(Character):
         self._y = y
         self._h = WINDOW_HEIGHT / 25
         self._w = WINDOW_WIDTH / 25
-        self._sprite = sprite("images/player/walking.dat")
+        self._sprite = Sprite("images/player/walking.dat")
 
     def _init_(self, x, y, w, h):
         '''
@@ -52,7 +54,7 @@ class Player(Character):
     
     def collide(self, otherObject, collisionAngle):
         Character.collide(self, otherObject, collisionAngle)
-        if otherObject.type() is "Victory":
-            _victory = True
+        if otherObject.type() == "Victory":
+            self._victory = True
     def has_won(self):
         return self._victory

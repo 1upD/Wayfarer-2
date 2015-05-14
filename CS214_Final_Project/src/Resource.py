@@ -40,8 +40,6 @@ class Resource(StaticObject):
         time_elapsed = get_time() - self.last_use
         if time_elapsed < self._cooldown:
             self._sprite.set_frame(floor(time_elapsed / 100))
-            # I am going to cheat and put this logic in the draw loop. It will save a ton of step() calls
-            # self._cooldown += 1
         else:
             self._sprite.set_frame(5)
         self._sprite.draw(gameDisplay, self._x, self._y)

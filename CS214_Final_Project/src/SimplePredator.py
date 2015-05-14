@@ -4,12 +4,11 @@ Created on Apr 29, 2015
 @author: Derek Dik
 '''
 from src import DynamicObject
-from _random import Random
-from random import random, randint
+from random import randint
 from src.Globals import WINDOW_WIDTH, WINDOW_HEIGHT
-from src.sprite import sprite
+from src.Sprite import Sprite
 
-class simple_predator(DynamicObject.DynamicObject):
+class SimplePredator(DynamicObject.DynamicObject):
     '''
     models a simple creature that will move with random _direction
     '''
@@ -26,7 +25,7 @@ class simple_predator(DynamicObject.DynamicObject):
         self._w = WINDOW_WIDTH / 25 
         self._dy = randint(-2, 2)
         self._dx = randint(-2, 2)       
-        self._sprite = sprite("images\\bug\\bug.dat")  
+        self._sprite = Sprite("images\\bug\\bug.dat")  
         
     def step(self):
         DynamicObject.DynamicObject.step(self) 

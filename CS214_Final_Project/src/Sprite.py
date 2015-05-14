@@ -1,14 +1,13 @@
 '''
 Created on May 2, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 import pygame
-import os
 
-class sprite(object):
+class Sprite(object):
     '''
-    classdocs
+    A Sprite stores multiple images and animate them by switching consecutively.
     '''
     rate = 1
     def __init__(self, fileName):
@@ -21,9 +20,9 @@ class sprite(object):
         self.current = 0
         for line in sprite_file:
             line = line.strip('\n')
-#            sprite = pygame.image.load("images\\player\\Walkk0000.png")
+#            Sprite = pygame.image.load("images\\player\\Walkk0000.png")
             sprite = pygame.image.load(line)
-#            sprite.convert_alpha()
+#            Sprite.convert_alpha()
             print(line)
             self.sprite_list.append(sprite)
             self.total += 1

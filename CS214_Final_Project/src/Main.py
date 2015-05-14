@@ -145,14 +145,19 @@ if __name__ == '__main__':
                     gameExit = True
                 # Keyboard down event
                 if event.type == pygame.KEYDOWN:
+                    # Up key
                     if event.key == 119:
                         currentLevel.keyboardUp()
                     if event.key == 97:
+                    # Left key
                         currentLevel.keyboardLeft()
+                    # Right key
                     if event.key == 100:
                         currentLevel.keyboardRight()
+                    # Down key
                     if event.key == 115:
                         currentLevel.keyboardDown()
+                    # Esc key
                     if event.key == 27:
                         game_state = 2
                 # Keyboard up event
@@ -300,7 +305,7 @@ if __name__ == '__main__':
             mouse_pos = pygame.mouse.get_pos()
             
             # Draw the menu
-            game_finished_menu(gameDisplay, mouse_pos[0], mouse_pos[1])
+            game_finished_menu.draw(gameDisplay, mouse_pos[0], mouse_pos[1])
             
             # For each pygame event
             for event in pygame.event.get():

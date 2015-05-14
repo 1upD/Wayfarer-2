@@ -1,7 +1,7 @@
 '''
 Created on May 14, 2015
 
-@author: 1upde_000
+@author: Derek Dik
 '''
 from src.StaticObject import StaticObject
 
@@ -12,4 +12,4 @@ class EndTrigger(StaticObject):
     
     def __init__(self, x, y):
         StaticObject.__init__(self, x, y)
-        _type = "Victory"
+        self._type = "Victory"

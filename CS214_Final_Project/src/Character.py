@@ -4,8 +4,6 @@ Created on Apr 14, 2015
 @author: Derek Dik
 '''
 from src.DynamicObject import DynamicObject
-from src.StaticObject import StaticObject
-from test.test_pyexpat import PositionTest
 from src.Experience import Experience
 
 
